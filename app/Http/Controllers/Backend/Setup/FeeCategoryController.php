@@ -39,5 +39,40 @@ class FeeCategoryController extends Controller
         return redirect()->route('fee.category.view')->with($notification);
     }
 
+    public function FeeCatEdit($id)
+    {
+        $editData = FeeCategory::findOrFail($id);
+        return view('backend.setup.fee_category.edit_fee_cat', compact('editData'));
+    }
+
+    public function FeeCategoryUpdate(Request $request,$id)
+    {
+        $data = FeeCategory::findOrFail($id);
+        $validate = $request->validate([
+            'name' => 'required|unique:fee_categories,name,'.$data->id,
+        ]);
+        
+        $data->name = $request->name;
+        $data->save();
+
+        $notification = array(
+            'message' => 'Fee Category Updated Successfully' ,
+            'alert-type' => 'success', 
+        );
+
+        return redirect()->route('fee.category.view')->with($notification);
+    }
+
+    public function FeeCategoryDelete($id)
+    {
+        FeeCategory::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Fee category Deleted Successfully' ,
+            'alert-type' => 'success', 
+        );
+
+        return redirect()->route('fee.category.view')->with($notification);
+    }
+
 
 } // End Class

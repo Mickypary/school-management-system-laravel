@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\Setup\StudentYearController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
 use App\Http\Controllers\Backend\Setup\StudentShiftController;
 use App\Http\Controllers\Backend\Setup\FeeCategoryController;
+use App\Http\Controllers\Backend\Setup\FeeAmountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,6 +123,19 @@ Route::prefix('setups')->group(function (){
         Route::get('fee/category/view', 'ViewFeeCat')->name('fee.category.view')->middleware('auth');
         Route::get('fee/category/add', 'FeeCatAdd')->name('fee.category.add')->middleware('auth');
         Route::post('store/fee/category', 'StoreFeeCategory')->name('store.fee.category')->middleware('auth');
+        Route::get('fee/category/edit/{id}', 'FeeCatEdit')->name('fee.category.edit')->middleware('auth');
+        Route::post('fee/category/update/{id}', 'FeeCategoryUpdate')->name('fee.category.update')->middleware('auth');
+        Route::get('fee/category/delete/{id}', 'FeeCategoryDelete')->name('fee.category.delete')->middleware('auth');
+        
+    });
+
+    Route::controller(FeeAmountController::class)->group(function (){
+
+        // Student Shift
+        Route::get('fee/amount/view', 'ViewFeeAmount')->name('fee.amount.view')->middleware('auth');
+        Route::get('fee/amount/add', 'FeeAmountAdd')->name('fee.amount.add')->middleware('auth');
+        Route::post('store/fee/amount', 'StoreFeeAmount')->name('store.fee.amount')->middleware('auth');
+        Route::get('fee/amount/edit/{fee_category_id}', 'FeeAmountEdit')->name('fee.amount.edit')->middleware('auth');
         
     });
 

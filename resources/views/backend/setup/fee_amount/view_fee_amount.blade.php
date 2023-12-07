@@ -9,8 +9,8 @@
 
 			 <div class="box">
 				<div class="box-header with-border">
-				  <h3 class="box-title">Student Fee Category List</h3>
-				  <a href="{{ route('fee.category.add') }}" style="float: right;" class="btn btn-rounded btn-success">Add Fee Category</a>
+				  <h3 class="box-title">Student Fee Amount List</h3>
+				  <a href="{{ route('fee.amount.add') }}" style="float: right;" class="btn btn-rounded btn-success">Add Fee Amount</a>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -19,18 +19,18 @@
 						<thead>
 							<tr>
 								<th width="5%">Sl</th>
-								<th>Name</th>
+								<th>Fee Category</th>
 								<th width="25%">Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($allData as $key => $fee_cat)
+							@foreach($allData as $key => $amount)
 							<tr>
 								<td>{{ $key+1 }}</td>
-								<td>{{ $fee_cat->name }}</td>
+								<td>{{ $amount['fee_category']['name'] }}</td>
 								<td>
-									<a class="btn btn-rounded btn-md btn-info" href="{{ route('fee.category.edit', $fee_cat->id) }}">Edit</a> |
-									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('fee.category.delete', $fee_cat->id) }}">Delete</a>
+									<a class="btn btn-rounded btn-md btn-info" href="{{ route('fee.amount.edit', $amount->fee_category_id)}}">Edit</a> |
+									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="">Delete</a>
 								</td>
 							</tr>
 							@endforeach
