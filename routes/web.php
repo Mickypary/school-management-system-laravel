@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\Setup\StudentShiftController;
 use App\Http\Controllers\Backend\Setup\FeeCategoryController;
 use App\Http\Controllers\Backend\Setup\FeeAmountController;
 use App\Http\Controllers\Backend\Setup\ExamTypeController;
+use App\Http\Controllers\Backend\Setup\SubjectController;
 
 
 /*
@@ -149,6 +150,16 @@ Route::prefix('setups')->group(function (){
         Route::get('exam/type/view', 'ViewExamType')->name('exam.type.view')->middleware('auth');
         Route::get('exam/type/add', 'ExamTypeAdd')->name('exam.type.add')->middleware('auth');
         Route::post('store/exam/type', 'StoreExamType')->name('store.exam.type')->middleware('auth');
+        Route::get('exam/type/edit/{id}', 'ExamTypeEdit')->name('exam.type.edit')->middleware('auth');
+        Route::post('exam/type/update/{id}', 'ExamTypeUpdate')->name('update.exam.type')->middleware('auth');
+        Route::get('exam/type/delete/{id}', 'ExamTypeDelete')->name('exam.type.delete')->middleware('auth');
+        
+    });
+
+    Route::controller(SubjectController::class)->group(function (){
+
+        // School Subject
+        Route::get('subject/view', 'ViewSubject')->name('subject.view')->middleware('auth');
         
     });
 

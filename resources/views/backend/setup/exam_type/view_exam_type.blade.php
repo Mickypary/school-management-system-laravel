@@ -29,8 +29,8 @@
 								<td>{{ $key+1 }}</td>
 								<td>{{ $exam->name }}</td>
 								<td>
-									<a class="btn btn-rounded btn-md btn-info" href="{{ route('fee.category.edit', $exam->id) }}">Edit</a> |
-									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('fee.category.delete', $exam->id) }}">Delete</a>
+									<a class="btn btn-rounded btn-md btn-info" href="{{ route('exam.type.edit', $exam->id) }}">Edit</a> |
+									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('exam.type.delete', $exam->id) }}">Delete</a>
 								</td>
 							</tr>
 							@endforeach
