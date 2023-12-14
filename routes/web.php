@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\Setup\StudentGroupController;
 use App\Http\Controllers\Backend\Setup\StudentShiftController;
 use App\Http\Controllers\Backend\Setup\FeeCategoryController;
 use App\Http\Controllers\Backend\Setup\FeeAmountController;
+use App\Http\Controllers\Backend\Setup\ExamTypeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -136,6 +138,17 @@ Route::prefix('setups')->group(function (){
         Route::get('fee/amount/add', 'FeeAmountAdd')->name('fee.amount.add')->middleware('auth');
         Route::post('store/fee/amount', 'StoreFeeAmount')->name('store.fee.amount')->middleware('auth');
         Route::get('fee/amount/edit/{fee_category_id}', 'FeeAmountEdit')->name('fee.amount.edit')->middleware('auth');
+        Route::post('fee/amount/update/{fee_category_id}', 'FeeAmountUpdate')->name('update.fee.amount')->middleware('auth');
+        Route::get('fee/amount/details/{fee_category_id}', 'FeeAmountDetails')->name('fee.amount.details')->middleware('auth');
+        
+    });
+
+    Route::controller(ExamTypeController::class)->group(function (){
+
+        // Exam Type
+        Route::get('exam/type/view', 'ViewExamType')->name('exam.type.view')->middleware('auth');
+        Route::get('exam/type/add', 'ExamTypeAdd')->name('exam.type.add')->middleware('auth');
+        Route::post('store/exam/type', 'StoreExamType')->name('store.exam.type')->middleware('auth');
         
     });
 
