@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Setup\FeeCategoryController;
 use App\Http\Controllers\Backend\Setup\FeeAmountController;
 use App\Http\Controllers\Backend\Setup\ExamTypeController;
 use App\Http\Controllers\Backend\Setup\SubjectController;
+use App\Http\Controllers\Backend\Setup\AssignSubjectController;
 
 
 /*
@@ -160,6 +161,19 @@ Route::prefix('setups')->group(function (){
 
         // School Subject
         Route::get('subject/view', 'ViewSubject')->name('subject.view')->middleware('auth');
+        Route::get('subject/add', 'SubjectAdd')->name('subject.add')->middleware('auth');
+        Route::post('store/subject', 'StoreSubject')->name('store.subject')->middleware('auth');
+        Route::get('subject/edit/{id}', 'SubjectEdit')->name('subject.edit')->middleware('auth');
+        Route::post('subject/update/{id}', 'SubjectUpdate')->name('subject.update')->middleware('auth');
+        Route::get('subject/delete/{id}', 'SubjectDelete')->name('subject.delete')->middleware('auth');
+        
+    });
+
+    Route::controller(AssignSubjectController::class)->group(function (){
+
+        // Assign Subject Route
+        Route::get('assign/subject/view', 'ViewAssignSubject')->name('assign.subject.view')->middleware('auth');
+        Route::get('assign/subject/add', 'AddAssignSubject')->name('assign.subject.add')->middleware('auth');
         
     });
 
