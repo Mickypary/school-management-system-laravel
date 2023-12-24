@@ -174,6 +174,10 @@ Route::prefix('setups')->group(function (){
         // Assign Subject Route
         Route::get('assign/subject/view', 'ViewAssignSubject')->name('assign.subject.view')->middleware('auth');
         Route::get('assign/subject/add', 'AddAssignSubject')->name('assign.subject.add')->middleware('auth');
+        Route::post('store/assign/subject', 'StoreAssignSubject')->name('store.assign.subject')->middleware('auth');
+        Route::get('assign/subject/edit/{class_id}', 'AssignSubjectEdit')->name('assign.subject.edit')->middleware('auth');
+        Route::post('assign/subject/update/{class_id}', 'AssignSubjectUpdate')->name('update.assign.subject')->middleware('auth');
+        Route::get('assign/subject/details/{class_id}', 'AssignSubjectDetails')->name('assign.subject.details')->middleware('auth');
         
     });
 

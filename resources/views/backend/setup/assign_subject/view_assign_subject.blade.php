@@ -27,10 +27,10 @@
 							@foreach($allData as $key => $assign)
 							<tr>
 								<td>{{ $key+1 }}</td>
-								<td>{{ $assign->class_id }}</td>
+								<td>{{ $assign['student_class']['name'] }}</td>
 								<td>
-									<a class="btn btn-rounded btn-md btn-info" href="{{ route('fee.amount.edit', $assign->fee_category_id)}}">Edit</a> |
-									<a class="btn btn-rounded btn-md btn-primary" href="{{ route('fee.amount.details', $assign->fee_category_id)}}">Details</a>
+									<a class="btn btn-rounded btn-md btn-info" href="{{ route('assign.subject.edit', $assign->class_id)}}">Edit</a> |
+									<a class="btn btn-rounded btn-md btn-primary" href="{{ route('assign.subject.details', $assign->class_id)}}">Details</a>
 								</td>
 							</tr>
 							@endforeach
