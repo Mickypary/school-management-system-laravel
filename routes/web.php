@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\Setup\FeeAmountController;
 use App\Http\Controllers\Backend\Setup\ExamTypeController;
 use App\Http\Controllers\Backend\Setup\SubjectController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
+use App\Http\Controllers\Backend\Setup\DesignationController;
 
 
 /*
@@ -178,6 +179,19 @@ Route::prefix('setups')->group(function (){
         Route::get('assign/subject/edit/{class_id}', 'AssignSubjectEdit')->name('assign.subject.edit')->middleware('auth');
         Route::post('assign/subject/update/{class_id}', 'AssignSubjectUpdate')->name('update.assign.subject')->middleware('auth');
         Route::get('assign/subject/details/{class_id}', 'AssignSubjectDetails')->name('assign.subject.details')->middleware('auth');
+        
+    });
+
+    Route::controller(DesignationController::class)->group(function (){
+
+        // Designation Route
+        Route::get('designation/view', 'ViewDesignation')->name('designation.view')->middleware('auth');
+        Route::get('designation/add', 'AddDesignation')->name('designation.add')->middleware('auth');
+        Route::post('store/designation', 'StoreDesignation')->name('store.designation')->middleware('auth');
+        Route::get('designation/edit/{id}', 'DesignationEdit')->name('designation.edit')->middleware('auth');
+        Route::post('designation/update/{id}', 'DesignationUpdate')->name('update.designation')->middleware('auth');
+        Route::get('designation/delete/{id}', 'DesignationDelete')->name('designation.delete')->middleware('auth');
+
         
     });
 
