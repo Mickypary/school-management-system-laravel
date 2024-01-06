@@ -22,6 +22,7 @@
 								<th>Role</th>
 								<th>Name</th>
 								<th>Email</th>
+								<th>Code</th>
 								<th width="25%">Action</th>
 							</tr>
 						</thead>
@@ -29,9 +30,10 @@
 							@foreach($allData as $key => $user)
 							<tr>
 								<td>{{ $key+1 }}</td>
-								<td>{{ ucfirst($user->usertype) }}</td>
+								<td>{{ ucfirst($user->role) }}</td>
 								<td>{{ $user->name }}</td>
 								<td>{{ $user->email }}</td>
+								<td>{{ $user->code }}</td>
 								<td>
 									<a class="btn btn-rounded btn-md btn-info" href="{{ route('user.edit', $user->id) }}">Edit</a> |
 									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('user.delete', $user->id) }}">Delete</a>

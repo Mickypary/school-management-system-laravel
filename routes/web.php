@@ -15,6 +15,8 @@ use App\Http\Controllers\Backend\Setup\SubjectController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
 use App\Http\Controllers\Backend\Setup\DesignationController;
 
+use App\Http\Controllers\Backend\Student\StudentRegController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +48,9 @@ Route::controller(AdminController::class)->group(function (){
     Route::get('admin/logout', 'Logout')->name('admin.logout');
 });
 
+
+
+// Start User Prefix
 Route::prefix('users')->group(function (){
     
         // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
@@ -58,7 +63,7 @@ Route::prefix('users')->group(function (){
         Route::get('delete/{id}', 'UserDelete')->name('user.delete')->middleware('auth');
     });
 
-});
+}); // End User Prefix
 
 
 Route::prefix('profile')->group(function (){
@@ -72,9 +77,10 @@ Route::prefix('profile')->group(function (){
         Route::post('password/update', 'PasswordUpdate')->name('password.update')->middleware('auth');
     });
 
-});
+}); // End Profile Prefix
 
 
+// Start Setup Prefix
 Route::prefix('setups')->group(function (){
     
         // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
@@ -195,6 +201,20 @@ Route::prefix('setups')->group(function (){
         
     });
 
-}); // End Prefix
+}); // End Setup Prefix
+
+
+// Student Prefix
+Route::prefix('students')->group(function (){
+    
+        // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
+    Route::controller(StudentRegController::class)->group(function (){
+        Route::get('reg/view', 'StudentRegView')->name('student.registration.view')->middleware('auth');
+        Route::get('student/reg/add', 'StudentRegAdd')->name('student.reg.add')->middleware('auth');
+        Route::post('store/student/reg', 'StoreStudentReg')->name('store.student.reg')->middleware('auth');
+        Route::get('year/class/filter', 'StudentClassYearFilter')->name('student.year.class.filter')->middleware('auth');
+    });
+
+}); // End Student Prefix
 
 

@@ -12,7 +12,7 @@
 
 					  <a href="{{ route('profile.edit') }}" style="float: right;" class="btn btn-rounded btn-success">Edit User</a>
 
-					  <h6 class="widget-user-desc">Role: {{ $user->usertype }}</h6>
+					  <h6 class="widget-user-desc">Usertype: {{ $user->usertype }}</h6>
 					  <h6 class="widget-user-desc">Email: {{ $user->email }}</h6>
 
 					  
