@@ -96,7 +96,7 @@
 								</td>
 								<td>{{ $value['student']['code'] }}</td>
 								<td>
-									<a class="btn btn-rounded btn-md btn-info" href="{{ route('student.year.edit', $value->id) }}">Edit</a> |
+									<a class="btn btn-rounded btn-md btn-info" href="{{ route('student.registration.edit', $value->student_id) }}">Edit</a> |
 									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('student.year.delete', $value->id) }}">Delete</a>
 								</td>
 							</tr>

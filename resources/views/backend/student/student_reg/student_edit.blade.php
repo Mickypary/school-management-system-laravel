@@ -9,16 +9,16 @@
 		 <!-- Basic Forms -->
 		  <div class="box">
 			<div class="box-header with-border">
-			  <h4 class="box-title">Add Student</h4>
+			  <h4 class="box-title">Edit Student</h4>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
 			  <div class="row">
 				<div class="col">
-					<form method="post" action="{{ route('store.student.reg') }}" enctype="multipart/form-data">
+					<form method="post" action="{{ route('student.registration.update', $editData->student_id) }}" enctype="multipart/form-data">
 						@csrf
-					  <!-- <div class="row"> -->
-						<!-- <div class="col-12"> -->
+
+						<input type="hidden" name="id" value="{{ $editData->id }}">
 
 
 
@@ -28,7 +28,7 @@
 									<div class="form-group">
 										<h5>Student Name <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="name" class="form-control" required>
+											<input type="text" name="name" value="{{ $editData['student']['name'] }}" class="form-control" required>
 											@error('name')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -40,7 +40,7 @@
 									<div class="form-group">
 										<h5>Father's Name <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="fname" class="form-control" required>
+											<input type="text" name="fname" value="{{ $editData['student']['fname'] }}" class="form-control" required>
 											@error('fname')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -52,7 +52,7 @@
 									<div class="form-group">
 										<h5>Mother's Name <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="mname" class="form-control" required="" >
+											<input type="text" name="mname" value="{{ $editData['student']['mname'] }}" class="form-control" required="" >
 											@error('mname')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -69,7 +69,7 @@
 									<div class="form-group">
 										<h5>Father's Email <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="father_email" class="form-control" required>
+											<input type="text" name="father_email" value="{{ $editData['student']['father_email'] }}" class="form-control" required>
 											@error('father_email')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -81,7 +81,7 @@
 									<div class="form-group">
 										<h5>Mother's Email <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="mother_email" class="form-control" required>
+											<input type="text" name="mother_email" value="{{ $editData['student']['mother_email'] }}" class="form-control" required>
 											@error('mother_email')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -93,7 +93,7 @@
 									<div class="form-group">
 										<h5>Father's Mobile <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="father_mobile" class="form-control" required="" >
+											<input type="text" name="father_mobile" value="{{ $editData['student']['father_mobile'] }}" class="form-control" required="" >
 											@error('father_mobile')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -111,7 +111,7 @@
 									<div class="form-group">
 										<h5>Mobile No. <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="mobile" class="form-control" required>
+											<input type="text" name="mobile" value="{{ $editData['student']['mobile'] }}" class="form-control" required>
 											@error('mobile')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -123,7 +123,7 @@
 									<div class="form-group">
 										<h5>Address <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<textarea name="address" cols="40" rows="2"></textarea>
+											<textarea name="address" cols="40" rows="2">{{ $editData['student']['address'] }}</textarea>
 										</div>
 									</div>
 								</div>
@@ -134,8 +134,8 @@
 										<div class="controls">
 											<select name="gender" id="gender" class="form-control">
 												<option value="">Select Gender</option>
-												<option value="male">Male</option>
-												<option value="female">Female</option>
+												<option value="male" {{ ($editData['student']['gender'] == 'male' ? 'selected' : '') }}>Male</option>
+												<option value="female" {{ ($editData['student']['gender'] == 'female' ? 'selected' : '') }}>Female</option>
 											</select>
 										</div>
 									</div>
@@ -155,10 +155,10 @@
 										<div class="controls">
 											<select name="religion" id="religion" class="form-control">
 												<option value="">Select Religion</option>
-												<option value="Christianity">Christianity</option>
-												<option value="Muslim">Muslim</option>
-												<option value="Hindu">Hindu</option>
-												<option value="Others">Others</option>
+												<option value="Christianity" {{ ($editData['student']['religion'] == 'Christianity' ? 'selected' : '') }}>Christianity</option>
+												<option value="Muslim" {{ ($editData['student']['religion'] == 'Muslim' ? 'selected' : '') }}>Muslim</option>
+												<option value="Hindu" {{ ($editData['student']['religion'] == 'Hindu' ? 'selected' : '') }}>Hindu</option>
+												<option value="Others" {{ ($editData['student']['religion'] == 'Others' ? 'selected' : '') }}>Others</option>
 											</select>
 										</div>
 									</div>
@@ -168,7 +168,7 @@
 									<div class="form-group">
 										<h5>Date Of Birth <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="date" name="dob" class="form-control" required>
+											<input type="date" name="dob" value="{{ $editData['student']['dob'] }}" class="form-control" required>
 											@error('dob')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -180,7 +180,7 @@
 									<div class="form-group">
 										<h5>Discount <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="discount" class="form-control" required>
+											<input type="text" name="discount" value="{{ $editData['discount']['discount'] }}" class="form-control" required>
 											@error('discount')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -202,7 +202,7 @@
 											<select name="class_id" id="class_id" class="form-control">
 												<option value="" selected disabled>Select Class</option>
 												@foreach($classes as $class)
-												<option value="{{ $class->id }}">{{ $class->name }}</option>
+												<option value="{{ $class->id }}" {{ ($editData->class_id == $class->id ? 'selected' : '') }}>{{ $class->name }}</option>
 												@endforeach
 											</select>
 										</div>
@@ -216,7 +216,7 @@
 											<select name="year_id" id="year_id" class="form-control">
 												<option value="" selected disabled>Select Year</option>
 												@foreach($years as $year)
-												<option value="{{ $year->id }}">{{ $year->name }}</option>
+												<option value="{{ $year->id }}" {{ ($editData->year_id == $year->id ? 'selected' : '') }}>{{ $year->name }}</option>
 												@endforeach
 											</select>
 										</div>
@@ -230,7 +230,7 @@
 											<select name="group_id" id="group_id" class="form-control">
 												<option value="" selected disabled>Select Group</option>
 												@foreach($groups as $group)
-												<option value="{{ $group->id }}">{{ $group->name }}</option>
+												<option value="{{ $group->id }}" {{ ($editData->group_id == $group->id ? 'selected' : '') }}>{{ $group->name }}</option>
 												@endforeach
 											</select>
 										</div>
@@ -253,7 +253,7 @@
 											<select name="shift_id" id="shift_id" class="form-control">
 												<option value="" selected disabled>Select Shift</option>
 												@foreach($shifts as $shift)
-												<option value="{{ $shift->id }}">{{ $shift->name }}</option>
+												<option value="{{ $shift->id }}" {{ ($editData->shift_id == $shift->id ? 'selected' : '') }}>{{ $shift->name }}</option>
 												@endforeach
 											</select>
 										</div>
@@ -272,7 +272,7 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<div class="controls" >
-											<img id="showImage" src="{{  url('upload/no_image.jpg') }}" style="width: 100px; height: 100px; border:1px solid #000000">
+											<img id="showImage" src="{{ !empty($editData['student']['image']) ? asset('upload/student_images/'.$editData['student']['image']) : asset('upload/no_image.jpg') }}" style="width: 100px; height: 100px; border:1px solid #000000">
 										</div>
 									</div>
 								</div>
@@ -282,7 +282,7 @@
 
 
 						<div class="text-xs-right">
-							<input type="submit" class="btn btn-rounded btn-info mb-5" value="Submit">
+							<input type="submit" class="btn btn-rounded btn-info mb-5" value="Update">
 						</div>
 					</form>
 

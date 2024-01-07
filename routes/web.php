@@ -213,6 +213,8 @@ Route::prefix('students')->group(function (){
         Route::get('student/reg/add', 'StudentRegAdd')->name('student.reg.add')->middleware('auth');
         Route::post('store/student/reg', 'StoreStudentReg')->name('store.student.reg')->middleware('auth');
         Route::get('year/class/filter', 'StudentClassYearFilter')->name('student.year.class.filter')->middleware('auth');
+        Route::get('reg/edit/{student_id}', 'StudentRegEdit')->name('student.registration.edit')->middleware('auth');
+        Route::post('reg/update/{student_id}', 'StudentRegUpdate')->name('student.registration.update')->middleware('auth');
     });
 
 }); // End Student Prefix
