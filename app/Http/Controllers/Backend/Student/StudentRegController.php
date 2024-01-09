@@ -144,14 +144,14 @@ class StudentRegController extends Controller
 
     }
 
-    public function StudentRegEdit($student_id)
+    public function StudentRegEdit($student_id, $year_id)
     {
         $data['classes'] = StudentClass::all();
         $data['years'] = StudentYear::all();
         $data['shifts'] = StudentShift::all();
         $data['groups'] = StudentGroup::all();
 
-        $data['editData'] = AssignStudent::with(['student','discount'])->where('student_id', $student_id)->first();
+        $data['editData'] = AssignStudent::with(['student','discount'])->where('student_id', $student_id)->where('year_id', $year_id)->first();
         // dd($data['editData']->toArray());
         return view('backend.student.student_reg.student_edit', $data);
     }
@@ -204,6 +204,75 @@ class StudentRegController extends Controller
 
             $notification = array(
                 'message' => 'Student Registration Updated Successfully' ,
+                'alert-type' => 'success', 
+            );
+
+            return redirect()->route('student.registration.view')->with($notification);
+    }
+
+    public function StudentEditPromotion($student_id)
+    {
+        $data['classes'] = StudentClass::all();
+        $data['years'] = StudentYear::all();
+        $data['shifts'] = StudentShift::all();
+        $data['groups'] = StudentGroup::all();
+
+        $data['editData'] = AssignStudent::with(['student','discount'])->where('student_id', $student_id)->first();
+        // dd($data['editData']->toArray());
+        return view('backend.student.student_reg.student_promotion', $data);
+    }
+
+    public function StudentUpdatePromotion(Request $request, $student_id)
+    {
+        DB::transaction(function () use($request,$student_id) {
+
+        // $userData = User::where('id',$student_id)->first();
+        //     $userData->name = $request->name;
+        //     $userData->email = $request->email;
+        //     $userData->fname = $request->fname;
+        //     $userData->mname = $request->mname;
+        //     $userData->father_email = $request->father_email;
+        //     $userData->mother_email = $request->mother_email;
+        //     $userData->father_mobile = $request->father_mobile;
+        //     $userData->dob = date('Y-m-d', strtotime($request->dob));
+        //     $userData->mobile = $request->mobile;
+        //     $userData->address = $request->address;
+        //     $userData->gender = $request->gender;
+        //     $userData->religion = $request->religion;
+
+        //     $file = $request->file('image');
+        //     if ($file) {
+        //         @unlink(public_path('upload/student_images/'.$userData->image));
+        //         $filename = date('YmdHi').'.'.$file->getClientOriginalName();
+        //         $file->move(public_path('upload/student_images'), $filename);
+        //         $userData->image = $filename;
+
+        //     }
+
+        //     $userData->save();
+
+
+            $assign_student = new AssignStudent();
+            $assign_student->student_id = $student_id;
+            $assign_student->class_id = $request->class_id;
+            $assign_student->year_id = $request->year_id;
+            $assign_student->group_id = $request->group_id;
+            $assign_student->shift_id = $request->shift_id;
+
+            $assign_student->save();
+
+
+            $discount_student = new StudentDiscount();
+            $discount_student->assign_student_id = $assign_student->id;
+            $discount_student->fee_category_id = 1;
+            $discount_student->discount = $request->discount;
+
+            $discount_student->save();
+
+        }); /*End DB Transactional*/
+
+            $notification = array(
+                'message' => 'Student Promotion Updated Successfully' ,
                 'alert-type' => 'success', 
             );
 
