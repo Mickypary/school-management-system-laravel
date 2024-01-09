@@ -217,6 +217,7 @@ Route::prefix('students')->group(function (){
         Route::post('reg/update/{student_id}', 'StudentRegUpdate')->name('student.registration.update')->middleware('auth');
         Route::get('edit/promotion/{student_id}', 'StudentEditPromotion')->name('student.registration.promotion')->middleware('auth');
         Route::post('update/promotion/{student_id}', 'StudentUpdatePromotion')->name('student.update.promotion')->middleware('auth');
+        Route::get('reg/details/{student_id}', 'StudentRegDetails')->name('student.registration.details')->middleware('auth');
     });
 
 }); // End Student Prefix

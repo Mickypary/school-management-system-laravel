@@ -14,6 +14,7 @@ use App\Models\StudentShift;
 use App\Models\StudentGroup;
 
 use DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StudentRegController extends Controller
 {
@@ -256,8 +257,8 @@ class StudentRegController extends Controller
             $assign_student->student_id = $student_id;
             $assign_student->class_id = $request->class_id;
             $assign_student->year_id = $request->year_id;
-            $assign_student->group_id = $request->group_id;
-            $assign_student->shift_id = $request->shift_id;
+            // $assign_student->group_id = $request->group_id;
+            // $assign_student->shift_id = $request->shift_id;
 
             $assign_student->save();
 
@@ -278,6 +279,23 @@ class StudentRegController extends Controller
 
             return redirect()->route('student.registration.view')->with($notification);
     }
+
+    // public function StudentRegDetails($student_id)
+    // {
+    //     $data['details'] = AssignStudent::where('student_id', $student_id)->first();
+    //     $pdf = PDF::loadView('backend.student.student_reg.student_details_pdf', $data)
+    //     // $pdf->SetProtection(['copy', 'print'], '', 'pass');
+    //     // return $pdf->stream('document.pdf');
+    // }
+
+    public function StudentRegDetails($student_id)
+    {
+        $data['details'] = AssignStudent::where('student_id', $student_id)->first();
+        $pdf = Pdf::loadView('backend.student.student_reg.student_details_pdf', $data);
+        return $pdf->stream('student.pdf');
+        // return $pdf->download('student_details.pdf');
+    }
+
 
 
 
