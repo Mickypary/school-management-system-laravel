@@ -14,6 +14,7 @@
 				  <div class="box-body">
 
 				  	<form method="GET" action="{{ route('student.year.class.filter')}}">
+				  		@csrf
 				  		<div class="row">
 
 				  			<div class="col-md-4">
@@ -98,7 +99,7 @@
 								<td>
 									<a class="btn btn-md btn-info" href="{{ route('student.registration.edit', [$value->student_id, $value->year_id]) }}"><i class="fa fa-edit"></i></a> |
 									<a id="" class="btn btn-md btn-primary" href="{{ route('student.registration.promotion', $value->student_id) }}"><i class="fa fa-check"></i></a> |
-									<a class="btn btn-md btn-danger" href="{{ route('student.registration.details', $value->student_id) }}" target="_blank" rel="noreferrer"><i class="fa fa-eye"></i></a>
+									<a class="btn btn-md btn-danger" href="{{ route('student.registration.details', [$value->student_id, $value->year_id]) }}" target="_blank" rel="noreferrer"><i class="fa fa-eye"></i></a>
 								</td>
 							</tr>
 							@endforeach

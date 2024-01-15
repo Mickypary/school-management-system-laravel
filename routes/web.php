@@ -16,6 +16,8 @@ use App\Http\Controllers\Backend\Setup\AssignSubjectController;
 use App\Http\Controllers\Backend\Setup\DesignationController;
 
 use App\Http\Controllers\Backend\Student\StudentRegController;
+use App\Http\Controllers\Backend\Student\StudentRollController;
+use App\Http\Controllers\Backend\Student\RegistrationFeeController;
 
 
 /*
@@ -217,8 +219,27 @@ Route::prefix('students')->group(function (){
         Route::post('reg/update/{student_id}', 'StudentRegUpdate')->name('student.registration.update')->middleware('auth');
         Route::get('edit/promotion/{student_id}', 'StudentEditPromotion')->name('student.registration.promotion')->middleware('auth');
         Route::post('update/promotion/{student_id}', 'StudentUpdatePromotion')->name('student.update.promotion')->middleware('auth');
-        Route::get('reg/details/{student_id}', 'StudentRegDetails')->name('student.registration.details')->middleware('auth');
+        Route::get('reg/details/{student_id}/{year_id}', 'StudentRegDetails')->name('student.registration.details')->middleware('auth');  
+        
     });
+
+
+    /* Student Roll Generate */
+    Route::controller(StudentRollController::class)->group(function () {
+        Route::get('roll/generate/view', 'StudentRollView')->name('roll.generate.view')->middleware('auth');
+        Route::get('registration/getstudents', 'StudentRollGenerate')->name('student.registration.getstudents')->middleware('auth');
+        Route::post('store/roll/generate', 'StoreRollGenerate')->name('store.roll.generate')->middleware('auth');
+    });
+
+
+    // Registration Fee Route
+    Route::controller(RegistrationFeeController::class)->group(function () {
+        Route::get('reg/fee/view', 'RegFeeView')->name('registration.fee.view')->middleware('auth');
+        Route::get('reg/fee/filter', 'RegFeeFilter')->name('student.registration.fee.classwise.get')->middleware('auth');
+        Route::get('reg/fee/payslip', 'RegFeePayslip')->name('student.registration.fee.payslip')->middleware('auth');
+    });
+
+
 
 }); // End Student Prefix
 

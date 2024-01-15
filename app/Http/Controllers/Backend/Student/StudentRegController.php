@@ -288,9 +288,9 @@ class StudentRegController extends Controller
     //     // return $pdf->stream('document.pdf');
     // }
 
-    public function StudentRegDetails($student_id)
+    public function StudentRegDetails($student_id,$year_id)
     {
-        $data['details'] = AssignStudent::where('student_id', $student_id)->first();
+        $data['details'] = AssignStudent::where('student_id', $student_id)->where('year_id', $year_id)->first();
         $pdf = Pdf::loadView('backend.student.student_reg.student_details_pdf', $data);
         return $pdf->stream('student.pdf');
         // return $pdf->download('student_details.pdf');
