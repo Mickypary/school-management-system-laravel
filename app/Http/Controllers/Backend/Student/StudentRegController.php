@@ -115,6 +115,7 @@ class StudentRegController extends Controller
             $user->save();
 
 
+            // Store Assign student info in DB
             $assign_student = new AssignStudent();
             $assign_student->student_id = $user->id;
             $assign_student->class_id = $request->class_id;
@@ -124,7 +125,7 @@ class StudentRegController extends Controller
 
             $assign_student->save();
 
-
+            // Store Discount info in database
             $discount_student = new StudentDiscount();
             $discount_student->assign_student_id = $assign_student->id;
             $discount_student->fee_category_id = 1;

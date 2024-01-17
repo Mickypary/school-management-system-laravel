@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\Setup\DesignationController;
 use App\Http\Controllers\Backend\Student\StudentRegController;
 use App\Http\Controllers\Backend\Student\StudentRollController;
 use App\Http\Controllers\Backend\Student\RegistrationFeeController;
+use App\Http\Controllers\Backend\Student\MonthlyFeeController;
 
 
 /*
@@ -237,6 +238,14 @@ Route::prefix('students')->group(function (){
         Route::get('reg/fee/view', 'RegFeeView')->name('registration.fee.view')->middleware('auth');
         Route::get('reg/fee/filter', 'RegFeeFilter')->name('student.registration.fee.classwise.get')->middleware('auth');
         Route::get('reg/fee/payslip', 'RegFeePayslip')->name('student.registration.fee.payslip')->middleware('auth');
+    });
+
+
+    // Monthly Fee Route
+    Route::controller(MonthlyFeeController::class)->group(function () {
+        Route::get('monthly/fee/view', 'MonthlyFeeView')->name('monthly.fee.view')->middleware('auth');
+        Route::get('monthly/fee/filter', 'MonthlyFeeFilter')->name('student.monthly.fee.classwise.get')->middleware('auth');
+        Route::get('monthly/fee/payslip', 'MonthlyFeePayslip')->name('student.monthly.fee.payslip')->middleware('auth');
     });
 
 

@@ -38,4 +38,5 @@ class AssignStudent extends Model
     {
         return $this->belongsTo(StudentGroup::class, 'group_id', 'id');
     }
+
 }
