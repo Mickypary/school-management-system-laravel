@@ -13,6 +13,7 @@ use App\Models\StudentClass;
 use App\Models\StudentYear;
 use App\Models\StudentShift;
 use App\Models\StudentGroup;
+use App\Models\ExamType;
 
 use DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -23,6 +24,7 @@ class ExamFeeController extends Controller
     {
         $data['years'] = StudentYear::all();
         $data['classes'] = StudentClass::all();
+        $data['exams'] = ExamType::all();
 
         return view('backend.student.exam_fee.exam_fee_view', $data);
     }
@@ -71,7 +73,7 @@ class ExamFeeController extends Controller
 
             $html .='<td>'.$finalfee.'$'.'</td>';
             $html .='<td>';
-            $html .='<a class="btn btn-sm btn-'.$color.'" title="PaySlip" target="_blanks" href="'.route("student.exam.fee.payslip").'?class_id='.$v->class_id.'&student_id='.$v->student_id.'">Fee Slip</a>';
+            $html .='<a class="btn btn-sm btn-'.$color.'" title="PaySlip" target="_blanks" href="'.route("student.exam.fee.payslip").'?class_id='.$v->class_id.'&student_id='.$v->student_id.'&exam_id='.$request->exam_id.'">Fee Slip</a>';
             $html .= '</td>';
             $html .= '</tr>';
             // $html .= '</table>';
@@ -84,6 +86,7 @@ class ExamFeeController extends Controller
     {
         $student_id = $request->student_id;
         $class_id = $request->class_id;
+        $data['exam'] = ExamType::where('id',$request->exam_id)->first()->name;
 
         $data['details'] = AssignStudent::with(['student','discount'])->where('student_id',$student_id)->where('class_id',$class_id)->first();
 

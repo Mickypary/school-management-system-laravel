@@ -41,7 +41,7 @@
       <p>School Address</p>
       <p>Phone : 343434343434</p>
       <p>Email : info@mickyparyserp.com</p>
-      <p>Student Exam Fee</p>
+      <p>Student Fee for {{ $exam }}</p>
     </td>
   </tr>
 </table>

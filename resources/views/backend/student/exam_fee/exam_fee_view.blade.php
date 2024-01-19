@@ -17,7 +17,7 @@
 
 				  		<div class="row">
 
-				  			<div class="col-md-4">
+				  			<div class="col-md-3">
 								<div class="form-group">
 									<h5>Academic Year <span class="text-danger"></span></h5>
 									<div class="controls">
@@ -31,7 +31,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<div class="form-group">
 									<h5>Student Class <span class="text-danger"></span></h5>
 									<div class="controls">
@@ -45,7 +45,21 @@
 								</div>
 							</div>
 
-							<div class="col-md-4" style="padding-top: 25px;">
+							<div class="col-md-3">
+								<div class="form-group">
+									<h5>Exam <span class="text-danger"></span></h5>
+									<div class="controls">
+										<select name="exam_id" id="exam_id" class="form-control">
+											<option value="" selected disabled>Select Exam</option>
+											@foreach($exams as $exam)
+											<option value="{{ $exam->id }}">{{ $exam->name }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-3" style="padding-top: 25px;">
 								<a id="search" class="btn btn-primary" name="search">Search</a>
 							</div>
 
@@ -79,10 +93,11 @@
   $(document).on('click','#search',function(){
     var year_id = $('#year_id').val();
     var class_id = $('#class_id').val();
+    var exam_id = $('#exam_id').val();
      $.ajax({
       url: "{{ route('student.exam.fee.classwise.get')}}",
       type: "get",
-      data: {'year_id':year_id,'class_id':class_id},
+      data: {'year_id':year_id,'class_id':class_id,'exam_id':exam_id},
       // beforeSend: function() {       
       // },
       success: function (data) {
