@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ProfileController;
+
+// Setup
 use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
@@ -15,11 +17,17 @@ use App\Http\Controllers\Backend\Setup\SubjectController;
 use App\Http\Controllers\Backend\Setup\AssignSubjectController;
 use App\Http\Controllers\Backend\Setup\DesignationController;
 
+
+// Student
 use App\Http\Controllers\Backend\Student\StudentRegController;
 use App\Http\Controllers\Backend\Student\StudentRollController;
 use App\Http\Controllers\Backend\Student\RegistrationFeeController;
 use App\Http\Controllers\Backend\Student\MonthlyFeeController;
 use App\Http\Controllers\Backend\Student\ExamFeeController;
+
+
+// Employee
+use App\Http\Controllers\Backend\Employee\EmployeeRegController;
 
 
 /*
@@ -264,5 +272,24 @@ Route::prefix('students')->group(function (){
 
 
 }); // End Student Prefix
+
+
+
+
+
+
+// Employee Prefix
+Route::prefix('employee')->group(function (){
+    
+        // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
+    Route::controller(EmployeeRegController::class)->group(function (){
+        Route::get('reg/view', 'EmployeeView')->name('employee.registration.view')->middleware('auth');
+        Route::get('reg/add', 'EmployeeAdd')->name('employee.registration.add')->middleware('auth');
+        
+    });
+
+
+
+}); // End Employee Prefix
 
 
