@@ -53,21 +53,24 @@ Route::controller(AdminController::class)->group(function (){
 });
 
 
+// Middleware protected
+Route::group(['middleware' => 'auth'], function() {
+    // Start User Prefix
+    Route::prefix('users')->group(function (){
+        
+            // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
+        Route::controller(UserController::class)->group(function (){
+            Route::get('view', 'UserView')->name('user.view');
+            Route::get('add', 'UserAdd')->name('user.add');
+            Route::post('store', 'UserStore')->name('user.store');
+            Route::get('edit/{id}', 'UserEdit')->name('user.edit');
+            Route::post('update/{id}', 'UserUpdate')->name('user.update');
+            Route::get('delete/{id}', 'UserDelete')->name('user.delete');
+        });
 
-// Start User Prefix
-Route::prefix('users')->group(function (){
-    
-        // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
-    Route::controller(UserController::class)->group(function (){
-        Route::get('view', 'UserView')->name('user.view')->middleware('auth');
-        Route::get('add', 'UserAdd')->name('user.add')->middleware('auth');
-        Route::post('store', 'UserStore')->name('user.store')->middleware('auth');
-        Route::get('edit/{id}', 'UserEdit')->name('user.edit')->middleware('auth');
-        Route::post('update/{id}', 'UserUpdate')->name('user.update')->middleware('auth');
-        Route::get('delete/{id}', 'UserDelete')->name('user.delete')->middleware('auth');
-    });
+    }); // End User Prefix
+});
 
-}); // End User Prefix
 
 
 Route::prefix('profile')->group(function (){
