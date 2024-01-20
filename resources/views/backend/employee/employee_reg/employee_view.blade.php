@@ -45,7 +45,7 @@
 								<td>{{ $employee->code }}</td>
 								@endif
 								<td>
-									<a class="btn btn-rounded btn-md btn-info" href="{{ route('designation.edit', $employee->id) }}">Edit</a> |
+									<a class="btn btn-rounded btn-md btn-info" href="{{ route('employee.reg.edit', $employee->id) }}">Edit</a> |
 									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('designation.delete', $employee->id) }}">Delete</a>
 								</td>
 							</tr>

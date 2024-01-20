@@ -9,13 +9,13 @@
 		 <!-- Basic Forms -->
 		  <div class="box">
 			<div class="box-header with-border">
-			  <h4 class="box-title">Add Employee</h4>
+			  <h4 class="box-title">Edit Employee</h4>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
 			  <div class="row">
 				<div class="col">
-					<form method="post" action="{{ route('store.employee.reg') }}" enctype="multipart/form-data">
+					<form method="post" action="{{ route('update.employee.reg', $editData->id) }}" enctype="multipart/form-data">
 						@csrf
 					  <!-- <div class="row"> -->
 						<!-- <div class="col-12"> -->
@@ -28,7 +28,7 @@
 									<div class="form-group">
 										<h5>Employee Name <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="name" class="form-control" required>
+											<input type="text" name="name" value="{{ $editData->name }}" class="form-control" required>
 											@error('name')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -40,7 +40,7 @@
 									<div class="form-group">
 										<h5>Mobile <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="mobile" class="form-control" required>
+											<input type="text" name="mobile" value="{{$editData->mobile}}" class="form-control" required>
 											@error('mobile')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -52,7 +52,7 @@
 									<div class="form-group">
 										<h5>Address <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<textarea name="address" cols="40" rows="2"></textarea>
+											<textarea name="address" cols="40" rows="2">{{$editData->address}}</textarea>
 										</div>
 									</div>
 								</div>
@@ -70,8 +70,8 @@
 										<div class="controls">
 											<select name="gender" id="gender" class="form-control">
 												<option value="">Select Gender</option>
-												<option value="male">Male</option>
-												<option value="female">Female</option>
+												<option value="male" {{ ($editData->gender == 'male' ? 'selected' : '')}}>Male</option>
+												<option value="female" {{ ($editData->gender == 'female' ? 'selected' : '')}}>Female</option>
 											</select>
 										</div>
 									</div>
@@ -83,10 +83,10 @@
 										<div class="controls">
 											<select name="religion" id="religion" class="form-control">
 												<option value="">Select Religion</option>
-												<option value="Christianity">Christianity</option>
-												<option value="Muslim">Muslim</option>
-												<option value="Hindu">Hindu</option>
-												<option value="Others">Others</option>
+												<option value="Christianity" {{ ($editData->religion == 'Christianity' ? 'selected' : '')}}>Christianity</option>
+												<option value="Muslim" {{ ($editData->religion == 'Muslim' ? 'selected' : '')}}>Muslim</option>
+												<option value="Hindu" {{ ($editData->religion == 'Hindu' ? 'selected' : '')}}>Hindu</option>
+												<option value="Others" {{ ($editData->religion == 'Others' ? 'selected' : '')}}>Others</option>
 											</select>
 										</div>
 									</div>
@@ -96,7 +96,7 @@
 									<div class="form-group">
 										<h5>Date Of Birth <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="date" name="dob" class="form-control" required>
+											<input type="date" name="dob" value="{{$editData->dob}}" class="form-control" required>
 											@error('dob')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -120,7 +120,7 @@
 											<select name="designation_id" id="designation_id" class="form-control">
 												<option value="" selected disabled>Select Designation</option>
 												@foreach($designation as $des)
-												<option value="{{ $des->id }}">{{ $des->name }}</option>
+												<option value="{{ $des->id }}" {{ ($editData->designation_id == $des->id ? 'selected' : '')}}>{{ $des->name }}</option>
 												@endforeach
 											</select>
 										</div>
@@ -131,7 +131,7 @@
 									<div class="form-group">
 										<h5>Email <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="email" class="form-control" required>
+											<input type="text" name="email" value="{{$editData->email}}" class="form-control" required>
 											@error('email')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -139,17 +139,21 @@
 									</div>
 								</div>
 
+
+
+								@if(!@$editData)
 								<div class="col-md-4">
 									<div class="form-group">
 										<h5>Join Date <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="date" name="join_date" class="form-control" required>
+											<input type="date" name="join_date" value="{{$editData->join_date}}" class="form-control" required>
 											@error('join_date')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
 										</div>
 									</div>
 								</div>
+								@endif
 							
 
 							</div> <!-- End 3rd row -->	
@@ -168,17 +172,20 @@
 
 							<div class="row"> <!-- Start 5th row -->
 
+
+								@if(!@$editData)
 								<div class="col-md-4">
 									<div class="form-group">
 										<h5>Salary <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="text" name="salary" class="form-control" required>
+											<input type="text" name="salary" value="{{$editData->salary}}" class="form-control" required>
 											@error('salary')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
 										</div>
 									</div>
 								</div>
+								@endif
 								
 
 								<div class="col-md-4">
@@ -193,7 +200,7 @@
 								<div class="col-md-4">
 									<div class="form-group">
 										<div class="controls" >
-											<img id="showImage" src="{{  url('upload/no_image.jpg') }}" style="width: 100px; height: 100px; border:1px solid #000000">
+											<img id="showImage" src="{{ (!empty($editData->image) ? url('upload/employee_images/'.$editData->image) : url('upload/no_image.jpg')) }}" style="width: 100px; height: 100px; border:1px solid #000000">
 										</div>
 									</div>
 								</div>

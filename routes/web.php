@@ -285,6 +285,9 @@ Route::prefix('employee')->group(function (){
     Route::controller(EmployeeRegController::class)->group(function (){
         Route::get('reg/view', 'EmployeeView')->name('employee.registration.view')->middleware('auth');
         Route::get('reg/add', 'EmployeeAdd')->name('employee.registration.add')->middleware('auth');
+        Route::post('reg/store', 'EmployeeStore')->name('store.employee.reg')->middleware('auth');
+        Route::get('reg/edit/{employee_id}', 'EmployeeEdit')->name('employee.reg.edit')->middleware('auth');
+        Route::post('reg/update/{employee_id}', 'EmployeeUpdate')->name('update.employee.reg')->middleware('auth');
         
     });
 
