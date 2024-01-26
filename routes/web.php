@@ -317,6 +317,15 @@ Route::prefix('employee')->group(function (){
             Route::get('leave/delete/{id}', 'LeaveDelete')->name('employee.leave.delete');
         });
     });
+
+
+
+    // Employee Attendance
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(EmployeeLeaveController::class)->group(function (){
+            Route::get('leave/view', 'AttendanceView')->name('employee.attendance.view');
+        });
+    });
     
 
 
