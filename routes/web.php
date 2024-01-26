@@ -30,6 +30,7 @@ use App\Http\Controllers\Backend\Student\ExamFeeController;
 use App\Http\Controllers\Backend\Employee\EmployeeRegController;
 use App\Http\Controllers\Backend\Employee\EmployeeSalaryController;
 use App\Http\Controllers\Backend\Employee\EmployeeLeaveController;
+use App\Http\Controllers\Backend\Employee\EmployeeAttendanceController;
 
 
 /*
@@ -322,8 +323,10 @@ Route::prefix('employee')->group(function (){
 
     // Employee Attendance
     Route::group(['middleware' => 'auth'], function (){
-            Route::controller(EmployeeLeaveController::class)->group(function (){
-            Route::get('leave/view', 'AttendanceView')->name('employee.attendance.view');
+            Route::controller(EmployeeAttendanceController::class)->group(function (){
+            Route::get('attendance/view', 'AttendanceView')->name('employee.attendance.view');
+            Route::get('attendance/add', 'AttendanceAdd')->name('employee.attendance.add');
+            Route::post('attendance/store', 'AttendanceStore')->name('store.employee.attendance');
         });
     });
     

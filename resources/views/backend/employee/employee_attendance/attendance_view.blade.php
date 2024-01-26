@@ -9,7 +9,8 @@
 
 			 <div class="box">
 				<div class="box-header with-border">
-				  <h3 class="box-title">Employee Salary List</h3>
+				  <h3 class="box-title">Employee Attendance List</h3>
+				  <a href="{{ route('employee.attendance.add') }}" style="float: right;" class="btn btn-rounded btn-success">Add Attendance</a>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -21,10 +22,8 @@
 								<th>Photo</th>
 								<th>Name</th>
 								<th>ID No.</th>
-								<th>Mobile</th>
-								<th>Gender</th>
-								<th>Join Date</th>
-								<th>Salary</th>
+								<th>Date</th>
+								<th>Status</th>
 								<th width="20%">Action</th>
 							</tr>
 						</thead>
@@ -32,16 +31,14 @@
 							@foreach($allData as $key => $value)
 							<tr>
 								<td>{{ $key+1 }}</td>
-								<td ><img class="rounded-circle" src="{{ url('upload/employee_images/'.$value->image)}}" width="40" height="40"></td>
-								<td>{{ $value->name }}</td>
-								<td>{{ $value->id_no }}</td>
-								<td>{{ $value->mobile }}</td>
-								<td>{{ ucfirst($value->gender) }}</td>
-								<td>{{ date('d-m-Y', strtotime($value->join_date)) }}</td>
-								<td>{{ $value->salary }}</td>
+								<td ><img class="rounded-circle" src="{{ url('upload/employee_images/'.$value['user']->image)}}" width="40" height="40"></td>
+								<td>{{ $value['user']->name }}</td>
+								<td>{{ $value['user']->id_no }}</td>
+								<td>{{ $value->date }}</td>
+								<td>{{ $value->attendance_status }}</td>
 								<td>
-									<a title="Increment" class="btn btn-md btn-info" href="{{ route('employee.salary.increment', $value->id) }}"><i class="fa fa-plus-circle"></i></a> |
-									<a title="Details" id="" target="_blank"  class="btn btn-md btn-primary" href="{{ route('employee.salary.details', $value->id) }}"><i class="fa fa-eye"></i></a>
+									<a class="btn btn-rounded btn-md btn-info" href="{{ route('employee.leave.edit', $value->id) }}">Edit</a> |
+									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('employee.leave.delete', $value->id) }}">Delete</a>
 								</td>
 							</tr>
 							@endforeach

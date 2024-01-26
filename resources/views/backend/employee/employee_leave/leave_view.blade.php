@@ -19,6 +19,7 @@
 						<thead>
 							<tr>
 								<th width="5%">Sl</th>
+								<th>Photo</th>
 								<th>Name</th>
 								<th>ID No.</th>
 								<th>Purpose</th>
@@ -31,6 +32,7 @@
 							@foreach($allData as $key => $leave)
 							<tr>
 								<td>{{ $key+1 }}</td>
+								<td ><img class="rounded-circle" src="{{ url('upload/employee_images/'.$leave['user']->image)}}" width="40" height="40"></td>
 								<td>{{ $leave['user']->name }}</td>
 								<td>{{ $leave['user']->id_no }}</td>
 								<td>{{ $leave['purpose']->name }}</td>
