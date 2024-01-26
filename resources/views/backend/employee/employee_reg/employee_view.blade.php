@@ -46,7 +46,7 @@
 								@endif
 								<td>
 									<a class="btn btn-rounded btn-md btn-info" href="{{ route('employee.reg.edit', $employee->id) }}">Edit</a> |
-									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('designation.delete', $employee->id) }}">Delete</a>
+									<a id="" target="_blank"  class="btn btn-rounded btn-md btn-primary" href="{{ route('employee.reg.details', $employee->id) }}">Details</a>
 								</td>
 							</tr>
 							@endforeach

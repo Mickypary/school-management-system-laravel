@@ -61,14 +61,15 @@ class EmployeeRegController extends Controller
                 if ($employeeId < 10) {
                     $id_no = '000' . $employeeId;
                 }elseif ($employeeId < 100) {
-                    $id_no = '00' . $studentId;
+                    $id_no = '00' . $employeeId;
                 }elseif ($employeeId < 1000) {
                     $id_no = '0' . $employeeId;
                 }
 
             } /*End Else*/
 
-            $final_id_no = 'GVS' . $checkyear.$id_no;
+            // $final_id_no = 'GVS' . $checkyear.$id_no;
+            $final_id_no = $checkyear.$id_no;
 
             $user = new User();
             $user->id_no = $final_id_no;
@@ -164,6 +165,14 @@ class EmployeeRegController extends Controller
             );
 
             return redirect()->route('employee.registration.view')->with($notification);
+    }
+
+    public function EmployeeDetails($employee_id)
+    {
+        $data['details'] = User::find($employee_id);
+        $pdf = Pdf::loadView('backend.employee.employee_reg.employee_details_pdf', $data);
+        return $pdf->stream('student.pdf');
+        // return $pdf->download('student_details.pdf');
     }
 
 

@@ -28,6 +28,8 @@ use App\Http\Controllers\Backend\Student\ExamFeeController;
 
 // Employee
 use App\Http\Controllers\Backend\Employee\EmployeeRegController;
+use App\Http\Controllers\Backend\Employee\EmployeeSalaryController;
+use App\Http\Controllers\Backend\Employee\EmployeeLeaveController;
 
 
 /*
@@ -288,8 +290,34 @@ Route::prefix('employee')->group(function (){
         Route::post('reg/store', 'EmployeeStore')->name('store.employee.reg')->middleware('auth');
         Route::get('reg/edit/{employee_id}', 'EmployeeEdit')->name('employee.reg.edit')->middleware('auth');
         Route::post('reg/update/{employee_id}', 'EmployeeUpdate')->name('update.employee.reg')->middleware('auth');
+        Route::get('reg/details/{employee_id}', 'EmployeeDetails')->name('employee.reg.details')->middleware('auth');
         
     });
+
+
+    // Employee Salary
+    Route::controller(EmployeeSalaryController::class)->group(function (){
+        Route::get('salary/view', 'EmployeeSalaryView')->name('employee.salary.view')->middleware('auth');
+        Route::get('salary/increment/{employee_id}', 'EmployeeSalaryIncrement')->name('employee.salary.increment')->middleware('auth');
+        Route::post('salary/increment/store/{employee_id}', 'StoreSalaryIncrement')->name('store.increment.salary')->middleware('auth');
+        Route::get('salary/details/{employee_id}', 'SalaryDetails')->name('employee.salary.details')->middleware('auth');
+        
+    });
+
+
+
+    // Employee Leave
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(EmployeeLeaveController::class)->group(function (){
+            Route::get('leave/view', 'LeaveView')->name('employee.leave.view');
+            Route::get('leave/add', 'LeaveAdd')->name('employee.leave.add');
+            Route::post('leave/store', 'LeaveStore')->name('store.employee.leave');
+            Route::get('leave/edit/{id}', 'LeaveEdit')->name('employee.leave.edit');
+            Route::post('leave/update/{id}', 'LeaveUpdate')->name('update.employee.leave');
+            Route::get('leave/delete/{id}', 'LeaveDelete')->name('employee.leave.delete');
+        });
+    });
+    
 
 
 

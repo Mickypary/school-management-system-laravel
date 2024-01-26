@@ -6,6 +6,11 @@ use App\Actions\Jetstream\DeleteUser;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Jetstream;
 
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Fortify\Fortify;
+
 class JetstreamServiceProvider extends ServiceProvider
 {
     /**
@@ -24,6 +29,17 @@ class JetstreamServiceProvider extends ServiceProvider
         $this->configurePermissions();
 
         Jetstream::deleteUsersUsing(DeleteUser::class);
+
+
+        // Adding the below code from Jetstream documentation website
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->loginname)->orWhere('id_no', $request->loginname)->first();
+
+            if ($user &&
+                Hash::check($request->password, $user->password)) {
+                return $user;
+            }
+        });
     }
 
     /**
