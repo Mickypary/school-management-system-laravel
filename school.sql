@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 26, 2024 at 11:56 AM
+-- Generation Time: Jan 27, 2024 at 04:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -116,6 +116,54 @@ INSERT INTO `designations` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employee_attendances`
+--
+
+CREATE TABLE `employee_attendances` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `employee_id` int(11) NOT NULL COMMENT 'employee_id=user_id',
+  `date` date NOT NULL,
+  `attendance_status` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `employee_attendances`
+--
+
+INSERT INTO `employee_attendances` (`id`, `employee_id`, `date`, `attendance_status`, `created_at`, `updated_at`) VALUES
+(5, 12, '2024-01-26', 'Present', '2024-01-26 19:43:10', '2024-01-26 19:43:10'),
+(6, 13, '2024-01-26', 'Leave', '2024-01-26 19:43:10', '2024-01-26 19:43:10'),
+(7, 14, '2024-01-26', 'Present', '2024-01-26 19:43:10', '2024-01-26 19:43:10'),
+(8, 15, '2024-01-26', 'Leave', '2024-01-26 19:43:10', '2024-01-26 19:43:10'),
+(9, 12, '2024-01-25', 'Present', '2024-01-26 19:44:49', '2024-01-26 19:44:49'),
+(10, 13, '2024-01-25', 'Present', '2024-01-26 19:44:49', '2024-01-26 19:44:49'),
+(11, 14, '2024-01-25', 'Present', '2024-01-26 19:44:49', '2024-01-26 19:44:49'),
+(12, 15, '2024-01-25', 'Present', '2024-01-26 19:44:49', '2024-01-26 19:44:49'),
+(13, 12, '2024-01-31', 'Absent', '2024-01-26 20:51:30', '2024-01-26 20:51:30'),
+(14, 13, '2024-01-31', 'Absent', '2024-01-26 20:51:30', '2024-01-26 20:51:30'),
+(15, 14, '2024-01-31', 'Absent', '2024-01-26 20:51:30', '2024-01-26 20:51:30'),
+(16, 15, '2024-01-31', 'Absent', '2024-01-26 20:51:30', '2024-01-26 20:51:30'),
+(25, 12, '2024-01-27', 'Leave', '2024-01-27 09:22:56', '2024-01-27 09:22:56'),
+(26, 13, '2024-01-27', 'Leave', '2024-01-27 09:22:56', '2024-01-27 09:22:56'),
+(27, 14, '2024-01-27', 'Leave', '2024-01-27 09:22:56', '2024-01-27 09:22:56'),
+(28, 15, '2024-01-27', 'Leave', '2024-01-27 09:22:56', '2024-01-27 09:22:56'),
+(29, 16, '2024-01-27', 'Leave', '2024-01-27 09:22:56', '2024-01-27 09:22:56'),
+(30, 12, '2024-02-01', 'Absent', '2024-01-27 11:48:24', '2024-01-27 11:48:24'),
+(31, 13, '2024-02-01', 'Absent', '2024-01-27 11:48:24', '2024-01-27 11:48:24'),
+(32, 14, '2024-02-01', 'Absent', '2024-01-27 11:48:24', '2024-01-27 11:48:24'),
+(33, 15, '2024-02-01', 'Absent', '2024-01-27 11:48:24', '2024-01-27 11:48:24'),
+(34, 16, '2024-02-01', 'Absent', '2024-01-27 11:48:24', '2024-01-27 11:48:24'),
+(35, 12, '2024-02-08', 'Absent', '2024-01-27 11:49:46', '2024-01-27 11:49:46'),
+(36, 13, '2024-02-08', 'Absent', '2024-01-27 11:49:46', '2024-01-27 11:49:46'),
+(37, 14, '2024-02-08', 'Absent', '2024-01-27 11:49:46', '2024-01-27 11:49:46'),
+(38, 15, '2024-02-08', 'Absent', '2024-01-27 11:49:46', '2024-01-27 11:49:46'),
+(39, 16, '2024-02-08', 'Absent', '2024-01-27 11:49:46', '2024-01-27 11:49:46');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `employee_leaves`
 --
 
@@ -162,7 +210,10 @@ INSERT INTO `employee_salary_logs` (`id`, `employee_id`, `previous_salary`, `pre
 (1, 12, 450000, 450000, 0, '1970-01-01', '2024-01-20 13:42:26', '2024-01-20 13:42:26'),
 (2, 13, 300000, 300000, 0, '1970-01-01', '2024-01-21 11:36:34', '2024-01-21 11:36:34'),
 (3, 13, 300000, 320000, 20000, '2024-01-21', '2024-01-21 13:39:06', '2024-01-21 13:39:06'),
-(4, 12, 450000, 470000, 20000, '2024-01-22', '2024-01-22 13:34:57', '2024-01-22 13:34:57');
+(4, 12, 450000, 470000, 20000, '2024-01-22', '2024-01-22 13:34:57', '2024-01-22 13:34:57'),
+(5, 14, 170000, 170000, 0, '1970-01-01', '2024-01-26 14:34:07', '2024-01-26 14:34:07'),
+(6, 15, 150000, 150000, 0, '1970-01-01', '2024-01-26 14:36:13', '2024-01-26 14:36:13'),
+(7, 16, 120000, 120000, 0, '1970-01-01', '2024-01-26 21:24:08', '2024-01-26 21:24:08');
 
 -- --------------------------------------------------------
 
@@ -326,7 +377,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2023_12_29_094351_create_student_discounts_table', 1),
 (19, '2024_01_19_193055_create_employee_salary_logs_table', 2),
 (20, '2024_01_23_120717_create_leave_purposes_table', 3),
-(21, '2024_01_23_120749_create_employee_leaves_table', 4);
+(21, '2024_01_23_120749_create_employee_leaves_table', 4),
+(22, '2024_01_26_110526_create_employee_attendances_table', 5);
 
 -- --------------------------------------------------------
 
@@ -379,8 +431,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('pHwTK4JAieRZIHt1l86UmDo8NNjJvkjai3KvsAZw', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNkk3U3U1WlZXUmlxZ0FyTE1rVzY5SU45SGFiYXF1aE9RM2JiSWsxMCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRMNmk0NXdrbm9EcUNCcmFJMkU4QllPVk1uaXQxaDU0TURpYWdZcUtxQXIxWi56Mmc3WlU4ZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9lbXBsb3llZS9sZWF2ZS92aWV3Ijt9fQ==', 1706266040),
-('WgRj1DsbqqY3I9pFjPtKPQLh7LXZTAqFWNoTO9hX', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'YTo2OntzOjM6InVybCI7YTowOnt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9lbXBsb3llZS9sZWF2ZS92aWV3Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo2OiJfdG9rZW4iO3M6NDA6Imt5SUdpZ1Qxd2tKMm54cDA5WEt2VHhtU3pTdnZIeFRxenhtUzhZY1AiO3M6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkTDZpNDV3a25vRHFDQnJhSTJFOEJZT1ZNbml0MWg1NE1EaWFnWXFLcUFyMVouejJnN1pVOGUiO30=', 1706195697);
+('ZqdXbHW3BuoAvLEotGZuNrbQWZBgXwpzPUC6230s', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiR3ZFemF3M01HTFNPTFFVZXRVcng1MmhCQ0RlbXZ6MVNhUGphWmhCaSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRMNmk0NXdrbm9EcUNCcmFJMkU4QllPVk1uaXQxaDU0TURpYWdZcUtxQXIxWi56Mmc3WlU4ZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9lbXBsb3llZS9tb250aGx5L3NhbGFyeS9wYXlzbGlwLzE2LzIwMjQtMDEiO319', 1706369960);
 
 -- --------------------------------------------------------
 
@@ -602,7 +653,10 @@ INSERT INTO `users` (`id`, `usertype`, `name`, `email`, `email_verified_at`, `pa
 (10, 'Student', 'Demilade', NULL, NULL, '$2y$12$qRPpmVZTEQBL9ugZgqCvje9ql54U6FIDYeAMOqG4rGkCcwGg6MPvK', NULL, NULL, NULL, '688643457888', 'Lekki', 'male', '202401111544.demilade pic.png', 'Adesoye', 'Venita', 'adesoye@gmail.com', 'venita@gmail.com', '34678976444', NULL, 'Christianity', 'GVS20180010', '2014-01-14', '4109', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-01-11 14:44:29', '2024-01-11 14:45:05'),
 (11, 'Admin', 'Amos Solomon', 'amos@gmail.com', NULL, '$2y$12$/8sK3AH24i8Szps6s9aeTu70V2bAqbEoCqXwyKtbdSlB8ehKFIHny', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '8423', 'Operator', NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-01-19 19:45:36', '2024-01-19 19:45:36'),
 (12, 'Employee', 'Afolabi Olalekan', 'afolabi.lalekan@gmail.com', NULL, '$2y$12$Hh7Q.3.iHxNydfi5qxsqVePaKTFfjAabZazedWulu05gAL6OqdzNK', NULL, NULL, NULL, '09030209698', 'Ikorodu Ketu', 'male', '202401202240.OLOWU DASOLA.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 'Muslim', '2012090001', '1981-02-12', '9570', NULL, '2012-09-12', 1, 470000, 1, NULL, NULL, NULL, '2024-01-20 13:42:26', '2024-01-22 13:34:57'),
-(13, 'Employee', 'Ajayi Akintunde', 'ajayi.akintunde@grenvilleschool.com', NULL, '$2y$12$1fHGK7OunHX50pp0LOhzZunBM6n1xssAlNwrPOu.nuJUIJZDGslQq', NULL, NULL, NULL, '08123456789', 'Ogba', 'male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Christianity', '2021050013', '1976-04-09', '8684', NULL, '2021-05-18', 3, 320000, 1, NULL, NULL, NULL, '2024-01-21 11:36:34', '2024-01-21 13:39:06');
+(13, 'Employee', 'Ajayi Akintunde', 'ajayi.akintunde@grenvilleschool.com', NULL, '$2y$12$1fHGK7OunHX50pp0LOhzZunBM6n1xssAlNwrPOu.nuJUIJZDGslQq', NULL, NULL, NULL, '08123456789', 'Ogba', 'male', '202401261452.demilade pic.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Christianity', '2021050013', '1976-04-09', '8684', NULL, '2021-05-18', 3, 320000, 1, NULL, NULL, NULL, '2024-01-21 11:36:34', '2024-01-26 13:52:21'),
+(14, 'Employee', 'Michael Oyewumi', 'michaeloyewumi@gmail.com', NULL, '$2y$12$JffsQTVflxl56/R0FazfiuVCupsgiE4NwE7DFPpY3RH0yMFmoRrIy', NULL, NULL, NULL, '09123456787', 'Ikeja', 'male', '202401261534.Mofeoluwa Lawal.JPG', NULL, NULL, NULL, NULL, NULL, NULL, 'Christianity', '2023100014', '1983-06-22', '8435', NULL, '2023-10-17', 3, 170000, 1, NULL, NULL, NULL, '2024-01-26 14:34:07', '2024-01-26 14:34:07'),
+(15, 'Employee', 'Eno Adesida', 'eno.adesida@grenvilleschool.com', NULL, '$2y$12$lygxx3YQ11npV0Ih5r6WLu6/ZMTiTesKvGB0JvpYZPtYXH0sQzOdy', NULL, NULL, NULL, '08123456789', 'Egbeda', 'female', '202401261536.ololade_fasanya.png', NULL, NULL, NULL, NULL, NULL, NULL, 'Christianity', '2021060015', '1986-08-13', '3287', NULL, '2021-06-16', 1, 150000, 1, NULL, NULL, NULL, '2024-01-26 14:36:13', '2024-01-26 14:36:13'),
+(16, 'Employee', 'Courage Agbon', 'courage.agbon@grenvilleschool.com', NULL, '$2y$12$4QA0BTp.uF8vpLv2rUHDv.XBDq1Xck61gYOdVL5cMqBuaus4gZaN6', NULL, NULL, NULL, '1234567890', 'Magodo', 'female', '202401262224.Okorafor_Amanda.JPG', NULL, NULL, NULL, NULL, NULL, NULL, 'Christianity', '2021050016', '1989-02-09', '7330', NULL, '2021-05-18', 2, 120000, 1, NULL, NULL, NULL, '2024-01-26 21:24:08', '2024-01-26 21:24:08');
 
 --
 -- Indexes for dumped tables
@@ -626,6 +680,12 @@ ALTER TABLE `assign_subjects`
 ALTER TABLE `designations`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `designations_name_unique` (`name`);
+
+--
+-- Indexes for table `employee_attendances`
+--
+ALTER TABLE `employee_attendances`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `employee_leaves`
@@ -771,6 +831,12 @@ ALTER TABLE `designations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `employee_attendances`
+--
+ALTER TABLE `employee_attendances`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
 -- AUTO_INCREMENT for table `employee_leaves`
 --
 ALTER TABLE `employee_leaves`
@@ -780,7 +846,7 @@ ALTER TABLE `employee_leaves`
 -- AUTO_INCREMENT for table `employee_salary_logs`
 --
 ALTER TABLE `employee_salary_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `exam_types`
@@ -816,7 +882,7 @@ ALTER TABLE `leave_purposes`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -864,7 +930,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
