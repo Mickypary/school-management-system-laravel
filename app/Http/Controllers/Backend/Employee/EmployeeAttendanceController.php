@@ -28,19 +28,20 @@ class EmployeeAttendanceController extends Controller
 {
     public function AttendanceView()
     {
-        $data['allData'] = EmployeeAttendance::orderBy('id','DESC')->get();
+        // $data['allData'] = EmployeeAttendance::orderBy('id','DESC')->get();
+        $data['allData'] = EmployeeAttendance::select('date')->groupBy('date')->orderBy('id','DESC')->get();
         return view('backend.employee.employee_attendance.attendance_view', $data);
     }
 
     public function AttendanceAdd()
     {
         $data['employee'] = User::where('usertype', 'Employee')->get();
-        $data['allData'] = EmployeeAttendance::all();
         return view('backend.employee.employee_attendance.attendance_add', $data);
     }
 
     public function AttendanceStore(Request $request)
-    {
+    {   
+        EmployeeAttendance::where('date', date('Y-m-d', strtotime($request->date)))->delete();
         $countemployee = count($request->employee_id);
         if ($countemployee != null) {
             for ($i=0; $i < $countemployee; $i++) { 
@@ -54,7 +55,31 @@ class EmployeeAttendanceController extends Controller
         }
 
         $notification = array(
-                'message' => 'Employee Attendance Inserted Successfully' ,
+                'message' => 'Employee Attendance Updated Successfully' ,
+                'alert-type' => 'success', 
+            );
+
+            return redirect()->route('employee.attendance.view')->with($notification);
+    }
+
+    public function AttendanceEdit($date)
+    {
+        $data['employee'] = User::where('usertype', 'Employee')->get();
+        $data['editData'] = EmployeeAttendance::where('date',$date)->get();
+        return view('backend.employee.employee_attendance.attendance_edit', $data);
+    }
+
+    public function AttendanceDetails($date)
+    {
+        $data['detailsData'] = EmployeeAttendance::where('date',$date)->orderBy('id','desc')->get();
+        return view('backend.employee.employee_attendance.attendance_details', $data);
+    }
+
+    public function AttendanceDelete($date)
+    {
+        EmployeeAttendance::where('date',date('Y-m-d', strtotime($date)))->delete();
+        $notification = array(
+                'message' => 'Employee Attendance Deleted Successfully' ,
                 'alert-type' => 'success', 
             );
 

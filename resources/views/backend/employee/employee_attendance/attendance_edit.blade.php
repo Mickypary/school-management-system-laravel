@@ -7,7 +7,7 @@
 		 <!-- Basic Forms -->
 		  <div class="box">
 			<div class="box-header with-border">
-			  <h4 class="box-title">Add Attendance</h4>
+			  <h4 class="box-title">Edit Attendance</h4>
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
@@ -25,7 +25,7 @@
 									<div class="form-group">
 										<h5>Attendance Date <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control">
+											<input type="date" name="date" value="{{ $editData[0]->date }}" class="form-control">
 											@error('name')
 												<span class="text-danger">{{ $message }}</span> 
 											@enderror
@@ -35,6 +35,7 @@
 
 							</div> <!-- End inner row -->	
 
+							
 							<div class="row">
 								<div class="col-md-12">
 							
@@ -54,20 +55,20 @@
 											</tr>
 										</thead>
 										<tbody>
-											@foreach($employee as $key => $employees)
-											<tr id="div{{$employees->id}}" class="text-center">
-												<input type="hidden" name="employee_id[]" value="{{$employees->id}}">
+											@foreach($editData as $key => $data)
+											<tr id="div{{$data->id}}" class="text-center">
+												<input type="hidden" name="employee_id[]" value="{{$data->employee_id}}">
 												<td>{{ $key+1}}</td>
-												<td ><img class="rounded-circle" src="{{ url('upload/employee_images/'.$employees->image)}}" width="40" height="40"></td>
-												<td>{{ $employees->name }}</td>
-												<td>{{ $employees->id_no }}</td>
+												<td ><img class="rounded-circle" src="{{ url('upload/employee_images/'.$data['user']->image)}}" width="40" height="40"></td>
+												<td>{{ $data['user']->name }}</td>
+												<td>{{ $data['user']->id_no }}</td>
 												<td colspan="3">
 													<div class="switch-toggle switch-3 switch-candy">
-														<input name="attendance_status{{$key}}" value="Present" type="radio" id="present{{$key}}" checked="">
+														<input name="attendance_status{{$key}}" value="Present" {{ ($data->attendance_status == 'Present' ? 'checked' : '') }} type="radio" id="present{{$key}}" checked="">
 														<label for="present{{$key}}">Present</label>
-														<input name="attendance_status{{$key}}" value="Leave" type="radio" id="leave{{$key}}" >
+														<input name="attendance_status{{$key}}" value="Leave" {{ ($data->attendance_status == 'Leave' ? 'checked' : '') }} type="radio" id="leave{{$key}}" >
 														<label for="leave{{$key}}">Leave</label>
-														<input name="attendance_status{{$key}}" value="Absent" type="radio" id="absent{{$key}}" >
+														<input name="attendance_status{{$key}}" value="Absent" {{ ($data->attendance_status == 'Absent' ? 'checked' : '') }} type="radio" id="absent{{$key}}" >
 														<label for="absent{{$key}}">Absent</label>
 													</div>
 												</td>
@@ -80,10 +81,11 @@
 
 								</div>
 							</div> <!-- End inner row -->	
+							
 
 
 						<div class="text-xs-right">
-							<input type="submit" class="btn btn-rounded btn-info mb-5" value="Submit">
+							<input type="submit" class="btn btn-rounded btn-info mb-5" value="Update">
 						</div>
 					</form>
 

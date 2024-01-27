@@ -31,6 +31,7 @@ use App\Http\Controllers\Backend\Employee\EmployeeRegController;
 use App\Http\Controllers\Backend\Employee\EmployeeSalaryController;
 use App\Http\Controllers\Backend\Employee\EmployeeLeaveController;
 use App\Http\Controllers\Backend\Employee\EmployeeAttendanceController;
+use App\Http\Controllers\Backend\Employee\MonthlySalaryController;
 
 
 /*
@@ -327,6 +328,19 @@ Route::prefix('employee')->group(function (){
             Route::get('attendance/view', 'AttendanceView')->name('employee.attendance.view');
             Route::get('attendance/add', 'AttendanceAdd')->name('employee.attendance.add');
             Route::post('attendance/store', 'AttendanceStore')->name('store.employee.attendance');
+            Route::get('attendance/edit/{date}', 'AttendanceEdit')->name('employee.attendance.edit');
+            Route::get('attendance/details/{date}', 'AttendanceDetails')->name('employee.attendance.details');
+            Route::get('attendance/delete/{date}', 'AttendanceDelete')->name('employee.attendance.delete');
+        });
+    });
+
+
+    // Employee Monthly Salary
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(MonthlySalaryController::class)->group(function (){
+            Route::get('monthly/salary/view', 'MonthlySalaryView')->name('employee.monthly.salary');
+            Route::get('monthly/salary/get', 'MonthlySalaryGet')->name('employee.monthly.salary.get');
+            Route::get('monthly/salary/payslip/{id}', 'MonthlySalaryPayslip')->name('employee.monthly.salary.payslip');
         });
     });
     

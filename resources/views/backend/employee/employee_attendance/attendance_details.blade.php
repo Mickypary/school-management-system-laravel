@@ -1,11 +1,6 @@
 @extends('admin.admin_master')
-
-<!-- Title section -->
-@section('title', 'Employee Attendance')
-
-
-
 @section('admin')
+
 
 <section class="content">
 		  <div class="row">
@@ -14,8 +9,8 @@
 
 			 <div class="box">
 				<div class="box-header with-border">
-				  <h3 class="box-title">Employee Attendance List</h3>
-				  <a href="{{ route('employee.attendance.add') }}" style="float: right;" class="btn btn-rounded btn-success">Add Attendance</a>
+				  <h3 class="box-title">Employee Attendance Details</h3><br>
+				  <h4 class="box-title">Attendance for {{ date('d-m-Y', strtotime($detailsData[0]->date)) }}</h4>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -24,20 +19,22 @@
 						<thead>
 							<tr>
 								<th width="5%">Sl</th>
+								<th>Photo</th>
+								<th>Name</th>
+								<th>ID No.</th>
 								<th>Date</th>
-								<th width="25%">Action</th>
+								<th>Status</th>
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($allData as $key => $value)
+							@foreach($detailsData as $key => $value)
 							<tr>
 								<td>{{ $key+1 }}</td>
+								<td ><img class="rounded-circle" src="{{ url('upload/employee_images/'.$value['user']->image)}}" width="40" height="40"></td>
+								<td>{{ $value['user']->name }}</td>
+								<td>{{ $value['user']->id_no }}</td>
 								<td>{{ date('d-m-Y', strtotime($value->date)) }}</td>
-								<td>
-									<a class="btn btn-rounded btn-md btn-info" href="{{ route('employee.attendance.edit', $value->date) }}">Edit</a> |
-									<a id="" class="btn btn-rounded btn-md btn-primary" href="{{ route('employee.attendance.details', $value->date) }}">Details</a>
-									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('employee.attendance.delete', $value->date) }}">Delete</a>
-								</td>
+								<td>{{ $value->attendance_status }}</td>
 							</tr>
 							@endforeach
 
