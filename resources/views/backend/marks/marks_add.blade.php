@@ -35,7 +35,7 @@
 
 							<div class="col-md-3">
 								<div class="form-group">
-									<h5>Student Class <span class="text-danger"></span></h5>
+									<h5>Class <span class="text-danger"></span></h5>
 									<div class="controls">
 										<select name="class_id" id="class_id" class="form-control">
 											<option value="" selected disabled>Select Class</option>
@@ -54,6 +54,20 @@
 										<select name="assign_subject_id" id="assign_subject_id" class="form-control">
 											<option selected >Select Subject</option>
 											
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<h5>Exam Type <span class="text-danger"></span></h5>
+									<div class="controls">
+										<select name="exam_type_id" id="exam_type_id" class="form-control">
+											<option value="" selected disabled>Select Class</option>
+											@foreach($exam_types as $exam)
+											<option value="{{ $exam->id }}">{{ $exam->name }}</option>
+											@endforeach
 										</select>
 									</div>
 								</div>
@@ -149,7 +163,7 @@
         success:function(data){
           var html = '<option value="">Select Subject</option>';
           $.each( data, function(key, v) {
-            html += '<option value="'+v.id+'">'+v.name+'</option>';
+            html += '<option value="'+v.subject_id+'">'+v.name+'</option>';
             // html += '<option value="'+v.id+'">'+v.school_subject.name+'</option>';
           });
           $('#assign_subject_id').html(html);

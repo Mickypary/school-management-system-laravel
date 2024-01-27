@@ -29,11 +29,12 @@ class DefaultController extends Controller
         // $user = DB::table('users')->find(3);
         // DB::table('users')->where('name', 'John')->first();
         $subjects = DB::table('assign_subjects')
-            ->join('subjects', 'assign_subjects.subject_id', '=', 'subjects.id')
+            ->leftJoin('subjects', 'assign_subjects.subject_id', '=', 'subjects.id')
             // ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('assign_subjects.*', 'subjects.name')
+            ->select('assign_subjects.subject_id', 'subjects.name')
             ->where('class_id', $request->class_id)
             ->get();
+            // dd($subjects->toArray());
         // $subjects = AssignSubject::with(['school_subject'])->where('class_id', $request->class_id)->get();
         // dd($subjects->toArray());
         return response()->json(@$subjects);
