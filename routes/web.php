@@ -340,7 +340,7 @@ Route::prefix('employee')->group(function (){
             Route::controller(MonthlySalaryController::class)->group(function (){
             Route::get('monthly/salary/view', 'MonthlySalaryView')->name('employee.monthly.salary');
             Route::get('monthly/salary/get', 'MonthlySalaryGet')->name('employee.monthly.salary.get');
-            Route::get('monthly/salary/payslip/{id}', 'MonthlySalaryPayslip')->name('employee.monthly.salary.payslip');
+            Route::get('monthly/salary/payslip/{employee_id}/{attend_date}', 'MonthlySalaryPayslip')->name('employee.monthly.salary.payslip');
         });
     });
     

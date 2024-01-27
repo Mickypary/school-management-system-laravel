@@ -43,7 +43,8 @@ class MonthlySalaryController extends Controller
          $html .= '<th>ID No</th>';
          $html .= '<th>Employee Name</th>';
          $html .= '<th>Basic Salary</th>';
-         $html .= '<th>Salary for this month</th>';
+         $html .= '<th>No of absents</th>';
+         $html .= '<th>Salary for this month</th>';    
          $html .= '<th>Action</th>';
          $html .= '</tr>';
 
@@ -57,6 +58,7 @@ class MonthlySalaryController extends Controller
             $html .= '<td>'.$attend['user']['id_no'].'</td>';
             $html .= '<td>'.$attend['user']['name'].'</td>';
             $html .= '<td>'.$attend['user']['salary'].'</td>';
+            $html .= '<td>'.$absentcount.'</td>';
 
             
             $salary = (float)$attend['user']['salary'];
@@ -66,7 +68,7 @@ class MonthlySalaryController extends Controller
 
             $html .='<td>'.$totalsalary.'$'.'</td>';
             $html .='<td>';
-            $html .='<a class="btn btn-sm btn-'.$color.'" title="PaySlip" target="_blanks" href="'.route("employee.monthly.salary.payslip", $attend->employee_id).'">Fee Slip</a>';
+            $html .='<a class="btn btn-sm btn-'.$color.'" title="PaySlip" target="_blanks" href="'.route("employee.monthly.salary.payslip", [$attend->employee_id, $request->date]).'">Pay Slip</a>';
             $html .= '</td>';
             $html .= '</tr>';
             // $html .= '</table>';
@@ -75,9 +77,18 @@ class MonthlySalaryController extends Controller
         return response()->json(@$html);
     }
 
-    public function MonthlySalaryPayslip(Request $request, $id)
+    public function MonthlySalaryPayslip(Request $request, $employee_id, $attend_date)
     {
-        // code...
+        $id = EmployeeAttendance::where('employee_id', $employee_id)->first();
+        $date = date('Y-m', strtotime($attend_date));
+         if ($date !='') {
+            $where[] = ['date','like',$date.'%'];
+         }
+        
+        $data['details'] = EmployeeAttendance::with(['user'])->where($where)->where('employee_id',$id->employee_id)->get();
+        // dd($data['details']->toArray());
+        $pdf = Pdf::loadView('backend.employee.monthly_salary.monthly_salary_pdf', $data);
+        return $pdf->stream('student.pdf');
     }
 
 
