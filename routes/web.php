@@ -34,6 +34,14 @@ use App\Http\Controllers\Backend\Employee\EmployeeAttendanceController;
 use App\Http\Controllers\Backend\Employee\MonthlySalaryController;
 
 
+
+// Marks
+use App\Http\Controllers\Backend\Marks\MarksController;
+
+// Default Controller
+use App\Http\Controllers\Backend\DefaultController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -348,5 +356,37 @@ Route::prefix('employee')->group(function (){
 
 
 }); // End Employee Prefix
+
+
+
+
+
+
+
+// Marks Prefix
+Route::prefix('marks')->group(function (){
+    
+        // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
+
+    // Employee Monthly Salary
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(MarksController::class)->group(function (){
+            Route::get('entry/add/view', 'MarksAdd')->name('marks.entry.add');
+            Route::get('getsubject', 'GetSubject')->name('marks.getsubject');
+        });
+    });
+
+
+    // Default Controller
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(DefaultController::class)->group(function (){
+            Route::get('getsubject', 'GetSubject')->name('marks.getsubject');
+        });
+    });
+    
+
+
+
+}); // End Marks Prefix
 
 
