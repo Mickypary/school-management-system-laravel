@@ -40,6 +40,15 @@ class DefaultController extends Controller
         return response()->json(@$subjects);
     }
 
+    public function GetStudents(Request $request)
+    {
+        $year_id = $request->year_id;
+        $class_id = $request->class_id;
+        $allData = AssignStudent::with(['student'])->where('year_id',$year_id)->where('class_id',$class_id)->get();
+
+        return response()->json($allData);
+    }
+
 
 
 } // End Class

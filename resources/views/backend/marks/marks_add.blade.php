@@ -81,19 +81,20 @@
 
 				  		<!-- ////////////////////// Roll Generate Table /////////////////////////////////// -->
 
-				  		<div class="row d-none" id="roll-generate">
+				  		<div class="row d-none" id="marks-entry">
 				  			<div class="col-md-12">
 				  				<table class="table table-bordered table-striped" style="width: 100%;">
 				  					<thead>
 				  						<tr>
+				  							<th>Photo</th>
 				  							<th>ID No.</th>
-				  							<th>Student Name</th>
+				  							<th>Name</th>
 				  							<th>Father Name</th>
 				  							<th>Gender</th>
-				  							<th>Roll</th>
+				  							<th>Marks</th>
 				  						</tr>
 				  					</thead>
-				  					<tbody id="roll-generate-tr">
+				  					<tbody id="marks-entry-tr">
 
 				  					</tbody>
 				  				</table>
@@ -114,32 +115,36 @@
 
 
 
-		<!-- // Start Roll Generated =========== -->
+		<!-- // Mark Entry =========== -->
 
 <script type="text/javascript">
   $(document).on('click','#search',function(){
     var year_id = $('#year_id').val();
     var class_id = $('#class_id').val();
+    var assign_subject_id = $('#assign_subject_id').val();
+    var exam_type_id = $('#exam_type_id').val();
      $.ajax({
-      url: "{{ route('student.registration.getstudents')}}",
+      url: "{{ route('student.marks.getstudents')}}",
       type: "GET",
       data: {
-      	'year_id':year_id,'class_id':class_id
+      	'year_id':year_id,'class_id':class_id,'assign_subject_id':assign_subject_id,'exam_type_id':exam_type_id
       },
       success: function (data) {
-        $('#roll-generate').removeClass('d-none');
+        $('#marks-entry').removeClass('d-none');
         var html = '';
         $.each( data, function(key, v){
           html +=
           '<tr>'+
-          '<td>'+v.student.id_no+'<input type="hidden" name="student_id[]" value="'+v.student_id+'"></td>'+
+          // '<td><?= url('upload/student_images') ?>/'+v.student.image+'</td>'+
+          '<td><img class="rounded-circle" style="width: 40px; height: 40px" src="<?= url('upload/student_images') ?>/'+v.student.image+'"></td>'+
+          '<td>'+v.student.id_no+'<input type="hidden" name="student_id[]" value="'+v.student_id+'"> <input type="hidden" name="id_no[]" value="'+v.student.id_no+'"> </td>'+
           '<td>'+v.student.name+'</td>'+
           '<td>'+v.student.fname+'</td>'+
           '<td>'+v.student.gender+'</td>'+
-          '<td><input type="text" class="form-control form-control-sm" name="roll[]" value="'+v.roll+'"></td>'+
+          '<td><input type="text" class="form-control form-control-sm" name="marks[]"></td>'+
           '</tr>';
         });
-        html = $('#roll-generate-tr').html(html);
+        html = $('#marks-entry-tr').html(html);
       }
     });
   });

@@ -381,6 +381,7 @@ Route::prefix('marks')->group(function (){
     Route::group(['middleware' => 'auth'], function (){
             Route::controller(DefaultController::class)->group(function (){
             Route::get('getsubject', 'GetSubject')->name('marks.getsubject');
+            Route::get('getstudents', 'GetStudents')->name('student.marks.getstudents');
         });
     });
     
