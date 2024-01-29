@@ -86,6 +86,7 @@
 				  				<table class="table table-bordered table-striped" style="width: 100%;">
 				  					<thead>
 				  						<tr>
+				  							<th>#</th>
 				  							<th>Photo</th>
 				  							<th>ID No.</th>
 				  							<th>Name</th>
@@ -133,8 +134,10 @@
         $('#marks-entry').removeClass('d-none');
         var html = '';
         $.each( data, function(key, v){
+        	var increment = key+1
           html +=
           '<tr>'+
+          '<td>'+increment+'</td>'+
           // '<td><?= url('upload/student_images') ?>/'+v.student.image+'</td>'+
           '<td><img class="rounded-circle" style="width: 40px; height: 40px" src="<?= url('upload/student_images') ?>/'+v.student.image+'"></td>'+
           '<td>'+v.student.id_no+'<input type="hidden" name="student_id[]" value="'+v.student_id+'"> <input type="hidden" name="id_no[]" value="'+v.student.id_no+'"> </td>'+
