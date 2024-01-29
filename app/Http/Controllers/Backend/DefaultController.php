@@ -44,7 +44,10 @@ class DefaultController extends Controller
     {
         $year_id = $request->year_id;
         $class_id = $request->class_id;
-        $allData = AssignStudent::with(['student'])->where('year_id',$year_id)->where('class_id',$class_id)->get();
+        $assign_subject_id = $request->assign_subject_id;
+        $exam_type_id = $request->exam_type_id;
+        $allData = AssignStudent::with(['student','student_mark'])->where('year_id',$year_id)->where('class_id',$class_id)->get();
+        // dd($allData);
 
         return response()->json($allData);
     }

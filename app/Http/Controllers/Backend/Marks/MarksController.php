@@ -32,6 +32,33 @@ class MarksController extends Controller
         return view('backend.marks.marks_add', $data);
     }
 
+    public function MarksStore(Request $request)
+    {
+        $countstudent = count($request->student_id);
+        // dd($countstudent);
+        if ($countstudent != null) {
+            for ($i=0; $i < $countstudent; $i++) { 
+                $savemark = new StudentMarks();
+                $savemark->student_id = $request->student_id[$i];
+                $savemark->id_no = $request->id_no[$i];
+                $savemark->year_id = $request->year_id;
+                $savemark->class_id = $request->class_id;
+                $savemark->assign_subject_id = $request->assign_subject_id;
+                $savemark->exam_type_id = $request->exam_type_id;
+                $savemark->marks = $request->marks[$i];
+                $savemark->save();
+
+            }
+
+            $notification = array(
+                'message' => 'Student Marks Inserted Successfully' ,
+                'alert-type' => 'success', 
+            );
+
+            return redirect()->back()->with($notification);
+        }
+    }
+
     
 
 

@@ -372,7 +372,7 @@ Route::prefix('marks')->group(function (){
     Route::group(['middleware' => 'auth'], function (){
             Route::controller(MarksController::class)->group(function (){
             Route::get('entry/add/view', 'MarksAdd')->name('marks.entry.add');
-            Route::get('getsubject', 'GetSubject')->name('marks.getsubject');
+            Route::post('entry/store', 'MarksStore')->name('marks.entry.store');
         });
     });
 

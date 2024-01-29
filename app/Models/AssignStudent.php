@@ -39,4 +39,9 @@ class AssignStudent extends Model
         return $this->belongsTo(StudentGroup::class, 'group_id', 'id');
     }
 
+    public function student_mark()
+    {
+        return $this->belongsTo(StudentMarks::class, 'student_id', 'student_id');
+    }
+
 }

@@ -15,7 +15,7 @@
 
 				  <div class="box-body">
 
-				  	<form method="post" action="{{ route('store.roll.generate') }}">
+				  	<form method="post" action="{{ route('marks.entry.store') }}">
 				  		@csrf
 				  		<div class="row">
 
@@ -73,7 +73,7 @@
 								</div>
 							</div>
 
-							<div class="col-md-3" style="padding-top: 25px;">
+							<div class="col-md-3">
 								<a id="search" class="btn btn-primary" name="search">Search</a>
 							</div>
 
@@ -83,7 +83,7 @@
 
 				  		<div class="row d-none" id="marks-entry">
 				  			<div class="col-md-12">
-				  				<table class="table table-bordered table-striped" style="width: 100%;">
+				  				<table class="table table-bordered table-striped" style="width: 100%; margin-top: 10px;">
 				  					<thead>
 				  						<tr>
 				  							<th>#</th>
@@ -99,6 +99,7 @@
 
 				  					</tbody>
 				  				</table>
+				  				<input type="submit" value="Submit" class="btn btn-primary btn-rounded">
 				  			</div>
 				  		</div>
 
@@ -144,7 +145,7 @@
           '<td>'+v.student.name+'</td>'+
           '<td>'+v.student.fname+'</td>'+
          '<td style="text-transform:capitalize">'+v.student.gender+'</td>'+ 
-          '<td><input type="text" class="form-control form-control-sm" name="marks[]"></td>'+
+          '<td><input type="text" class="form-control form-control-sm" name="marks[]" value="'+v.student_mark.marks+'"></td>'+
           '</tr>';
         });
         html = $('#marks-entry-tr').html(html);
