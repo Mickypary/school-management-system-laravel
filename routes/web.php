@@ -37,6 +37,7 @@ use App\Http\Controllers\Backend\Employee\MonthlySalaryController;
 
 // Marks
 use App\Http\Controllers\Backend\Marks\MarksController;
+use App\Http\Controllers\Backend\Marks\MarksGradeController;
 
 // Default Controller
 use App\Http\Controllers\Backend\DefaultController;
@@ -379,7 +380,27 @@ Route::prefix('marks')->group(function (){
     });
 
 
-    // Default Controller
+    // Mark Grade
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(MarksGradeController::class)->group(function (){
+            Route::get('grade/view', 'MarksGradeView')->name('marks.grade.view');
+            Route::get('grade/add', 'MarksGradeAdd')->name('marks.grade.add');
+            Route::post('grade/store', 'MarksGradeStore')->name('store.marks.grade');
+            Route::get('grade/edit/{id}', 'MarksGradeEdit')->name('marks.grade.edit');
+            Route::post('grade/update/{id}', 'MarksGradeUpdate')->name('update.marks.grade');
+        });
+    });
+
+}); // End Marks Prefix
+
+
+
+
+
+// ==============================================================================================
+
+
+// Default Controller
     Route::group(['middleware' => 'auth'], function (){
             Route::controller(DefaultController::class)->group(function (){
             Route::get('getsubject', 'GetSubject')->name('marks.getsubject');
@@ -387,10 +408,5 @@ Route::prefix('marks')->group(function (){
             Route::get('getstudentmarks', 'MarksEditGetStudent')->name('student.edit.getstudents');
         });
     });
-    
-
-
-
-}); // End Marks Prefix
 
 
