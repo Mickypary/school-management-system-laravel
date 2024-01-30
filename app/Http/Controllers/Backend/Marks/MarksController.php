@@ -59,6 +59,41 @@ class MarksController extends Controller
         }
     }
 
+    public function MarksEdit()
+    {
+        $data['years'] = StudentYear::all();
+        $data['classes'] = StudentClass::all();
+        $data['exam_types'] = ExamType::all();
+
+        return view('backend.marks.marks_edit', $data);
+    }
+
+    public function MarksUpdate(Request $request)
+    {
+        StudentMarks::where('year_id',$request->year_id)->where('class_id',$request->class_id)->where('exam_type_id',$request->exam_type_id)->where('assign_subject_id',$request->assign_subject_id)->delete();
+        // dd($countstudent);
+        if (count($request->student_id) != null) {
+            for ($i=0; $i < count($request->student_id); $i++) { 
+                $savemark = new StudentMarks();
+                $savemark->student_id = $request->student_id[$i];
+                $savemark->id_no = $request->id_no[$i];
+                $savemark->year_id = $request->year_id;
+                $savemark->class_id = $request->class_id;
+                $savemark->assign_subject_id = $request->assign_subject_id;
+                $savemark->exam_type_id = $request->exam_type_id;
+                $savemark->marks = $request->marks[$i];
+                $savemark->save();
+            }
+
+            $notification = array(
+                'message' => 'Student Marks Updated Successfully' ,
+                'alert-type' => 'success', 
+            );
+
+            return redirect()->back()->with($notification);
+        }
+    }
+
     
 
 

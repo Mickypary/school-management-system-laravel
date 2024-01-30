@@ -145,7 +145,7 @@
           '<td>'+v.student.name+'</td>'+
           '<td>'+v.student.fname+'</td>'+
          '<td style="text-transform:capitalize">'+v.student.gender+'</td>'+ 
-          '<td><input type="text" class="form-control form-control-sm" name="marks[]" value="'+v.student_mark.marks+'"></td>'+
+          '<td><input type="text" class="form-control form-control-sm" name="marks[]" value="'+'"></td>'+
           '</tr>';
         });
         html = $('#marks-entry-tr').html(html);

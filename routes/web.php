@@ -368,11 +368,13 @@ Route::prefix('marks')->group(function (){
     
         // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
 
-    // Employee Monthly Salary
+    // Mark Entry
     Route::group(['middleware' => 'auth'], function (){
             Route::controller(MarksController::class)->group(function (){
             Route::get('entry/add/view', 'MarksAdd')->name('marks.entry.add');
             Route::post('entry/store', 'MarksStore')->name('marks.entry.store');
+            Route::get('entry/edit', 'MarksEdit')->name('marks.entry.edit');
+            Route::post('entry/update', 'MarksUpdate')->name('marks.entry.update');
         });
     });
 
@@ -382,6 +384,7 @@ Route::prefix('marks')->group(function (){
             Route::controller(DefaultController::class)->group(function (){
             Route::get('getsubject', 'GetSubject')->name('marks.getsubject');
             Route::get('getstudents', 'GetStudents')->name('student.marks.getstudents');
+            Route::get('getstudentmarks', 'MarksEditGetStudent')->name('student.edit.getstudents');
         });
     });
     
