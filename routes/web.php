@@ -42,6 +42,10 @@ use App\Http\Controllers\Backend\Marks\MarksGradeController;
 // Default Controller
 use App\Http\Controllers\Backend\DefaultController;
 
+// Account Controller
+use App\Http\Controllers\Backend\Account\StudentFeeController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -388,10 +392,30 @@ Route::prefix('marks')->group(function (){
             Route::post('grade/store', 'MarksGradeStore')->name('store.marks.grade');
             Route::get('grade/edit/{id}', 'MarksGradeEdit')->name('marks.grade.edit');
             Route::post('grade/update/{id}', 'MarksGradeUpdate')->name('update.marks.grade');
+            Route::get('grade/delete/{id}', 'MarksGradeDelete')->name('marks.grade.delete');
         });
     });
 
 }); // End Marks Prefix
+
+
+
+
+// Account Prefix
+Route::prefix('accounts')->group(function (){
+    
+        // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
+
+    // Student Fee
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(StudentFeeController::class)->group(function (){
+            Route::get('student/fee/view', 'StudentFeeView')->name('student.fee.view');
+            Route::get('student/fee/add', 'StudentFeeAdd')->name('student.fee.add');
+            Route::post('student/fee/store', 'StudentFeeStore')->name('account.fee.store');
+        });
+    });
+
+}); // End Account Prefix
 
 
 
@@ -406,6 +430,7 @@ Route::prefix('marks')->group(function (){
             Route::get('getsubject', 'GetSubject')->name('marks.getsubject');
             Route::get('getstudents', 'GetStudents')->name('student.marks.getstudents');
             Route::get('getstudentmarks', 'MarksEditGetStudent')->name('student.edit.getstudents');
+            Route::get('student/fee/get', 'GetStudentFee')->name('account.fee.getStudent');
         });
     });
 

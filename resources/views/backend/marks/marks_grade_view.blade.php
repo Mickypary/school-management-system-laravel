@@ -25,7 +25,7 @@
 								<th>End Mark</th>
 								<th>Point Range</th>
 								<th>Remarks</th>
-								<th width="15%">Action</th>
+								<th width="20%">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -40,6 +40,7 @@
 								<td>{{ $value->remarks }}</td>
 								<td>
 									<a class="btn btn-rounded btn-md btn-info" href="{{ route('marks.grade.edit', $value->id) }}">Edit</a> |
+									<a id="delete" class="btn btn-rounded btn-md btn-danger" href="{{ route('marks.grade.delete', $value->id) }}">Delete</a> |
 								</td>
 							</tr>
 							@endforeach

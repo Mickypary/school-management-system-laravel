@@ -82,6 +82,17 @@ class MarksGradeController extends Controller
             return redirect()->route('marks.grade.view')->with($notification);
     }
 
+    public function MarksGradeDelete($id)
+    {
+        MarksGrade::find($id)->delete();
+        $notification = array(
+                'message' => 'Grade Marks Deleted Successfully' ,
+                'alert-type' => 'success', 
+            );
+
+            return redirect()->route('marks.grade.view')->with($notification);
+    }
+
 
 
 
