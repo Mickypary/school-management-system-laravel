@@ -52,7 +52,7 @@
 									<div class="form-group">
 										<h5>Address <span class="text-danger">*</span></h5>
 										<div class="controls">
-											<textarea name="address" cols="40" rows="2"></textarea>
+											<textarea class="form-control" name="address" cols="40" rows="2"></textarea>
 										</div>
 									</div>
 								</div>

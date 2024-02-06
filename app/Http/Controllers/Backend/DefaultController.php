@@ -19,6 +19,10 @@ use App\Models\ExamType;
 use App\Models\StudentMarks;
 use App\Models\FeeCategoryAmount;
 use App\Models\AccountStudentFee;
+use App\Models\EmployeeAttendance;
+use App\Models\AccountEmployeeSalary;
+
+use App\Models\OtherAccountCost;
 
 use DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -166,6 +170,123 @@ class DefaultController extends Controller
 
 //          }  
 //         return response()->json(@$html);
+    }
+
+
+
+
+    public function AccountSalaryGetEmployee(Request $request)
+    {
+        $date = date('Y-m', strtotime($request->date));
+         if ($date !='') {
+            $where[] = ['date','like',$date.'%'];
+         }
+
+         $data = EmployeeAttendance::select('employee_id')->groupBy('employee_id')->with(['user'])->where($where)->get();
+         // dd($data->toArray());
+         $html  = '<table class="table table-bordered table-striped">';
+         $html .= '<tr>';
+         $html .= '<th>SL</th>';
+         $html .= '<th>ID No</th>';
+         $html .= '<th>Employee Name</th>';
+         $html .= '<th>Basic Salary</th>';
+         $html .= '<th>No of absents</th>';
+         $html .= '<th>Salary for this month</th>';    
+         $html .= '<th>Select</th>';
+         $html .= '</tr>';
+
+
+         foreach ($data as $key => $attend) {
+
+            $account_salary = AccountEmployeeSalary::where('employee_id', $attend->employee_id)->where('date',$date)->first();
+
+            if($account_salary !=null) {
+                $checked = 'checked';
+            }else{
+                $checked = '';
+            } 
+
+            $totalattend = EmployeeAttendance::with(['user'])->where($where)->where('employee_id',$attend->employee_id)->where('attendance_status','Absent')->get();
+            $absentcount = count($totalattend);
+
+
+            $html .= '<tr>';
+            $html .= '<td>'.($key+1).'</td>';
+            $html .= '<td>'.$attend['user']['id_no'].'<input type="hidden" name="date" value="'.$date.'">'.'</td>';
+            $html .= '<td>'.$attend['user']['name'].'</td>';
+            $html .= '<td>'.$attend['user']['salary'].'</td>';
+            $html .= '<td>'.$absentcount.'</td>';
+
+            
+            $salary = (float)$attend['user']['salary'];
+            $salaryperday = (float)$salary/30;
+            $totalsalaryminus = (float)$absentcount*(float)$salaryperday;
+            $totalsalary = (float)$salary-(float)$totalsalaryminus;
+
+            $html .='<td>'.$totalsalary.'$ <input type="hidden" name="amount[]" value="'.$totalsalary.'">'.'</td>';
+            $html .= '<td><div>'.'<input type="hidden" name="employee_id[]" value="'.$attend->employee_id.'">'.'<input type="checkbox" name="checkmanage[]" id="'.$key.'" value="'.$key.'" '.$checked.'  style="transform: scale(1.5);margin-left: 10px;"> <label for="'.$key.'"> </label> '.'</div</td>'; 
+            $html .= '</tr>';
+            // $html .= '</table>';
+
+         }  
+        return response()->json(@$html);
+
+    }
+
+
+    public function MonthlyProfitDateWise(Request $request)
+    {
+        $start_date = date('Y-m', strtotime($request->start_date));
+        $end_date = date('Y-m', strtotime($request->end_date));
+        $sdate = date('Y-m-d', strtotime($request->start_date));
+        $edate = date('Y-m-d', strtotime($request->end_date));
+
+        $student_fee = AccountStudentFee::whereBetween('date',[$start_date,$end_date])->sum('amount');
+
+        $other_cost = OtherAccountCost::whereBetween('date',[$sdate,$edate])->sum('amount');
+
+        $other_emp_salary = AccountEmployeeSalary::whereBetween('date',[$start_date,$end_date])->sum('amount');
+
+         $data = EmployeeAttendance::select('employee_id')->groupBy('employee_id')->with(['user'])->where($where)->get();
+         // dd($data->toArray());
+         $html  = '<table class="table table-bordered table-striped">';
+         $html .= '<tr>';
+         $html .= '<th>SL</th>';
+         $html .= '<th>ID No</th>';
+         $html .= '<th>Employee Name</th>';
+         $html .= '<th>Basic Salary</th>';
+         $html .= '<th>No of absents</th>';
+         $html .= '<th>Salary for this month</th>';    
+         $html .= '<th>Action</th>';
+         $html .= '</tr>';
+
+
+         foreach ($data as $key => $attend) {
+            $totalattend = EmployeeAttendance::with(['user'])->where($where)->where('employee_id',$attend->employee_id)->where('attendance_status','Absent')->get();
+            $absentcount = count($totalattend);
+            $color = 'success';
+            $html .= '<tr>';
+            $html .= '<td>'.($key+1).'</td>';
+            $html .= '<td>'.$attend['user']['id_no'].'</td>';
+            $html .= '<td>'.$attend['user']['name'].'</td>';
+            $html .= '<td>'.$attend['user']['salary'].'</td>';
+            $html .= '<td>'.$absentcount.'</td>';
+
+            
+            $salary = (float)$attend['user']['salary'];
+            $salaryperday = (float)$salary/30;
+            $totalsalaryminus = (float)$absentcount*(float)$salaryperday;
+            $totalsalary = (float)$salary-(float)$totalsalaryminus;
+
+            $html .='<td>'.$totalsalary.'$'.'</td>';
+            $html .='<td>';
+            $html .='<a class="btn btn-sm btn-'.$color.'" title="PaySlip" target="_blanks" href="'.route("employee.monthly.salary.payslip", [$attend->employee_id, $request->date]).'">Pay Slip</a>';
+            $html .= '</td>';
+            $html .= '</tr>';
+            // $html .= '</table>';
+
+         }  
+        return response()->json(@$html);
     }
 
 

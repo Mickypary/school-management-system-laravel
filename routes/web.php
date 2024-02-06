@@ -44,6 +44,12 @@ use App\Http\Controllers\Backend\DefaultController;
 
 // Account Controller
 use App\Http\Controllers\Backend\Account\StudentFeeController;
+use App\Http\Controllers\Backend\Account\AccountSalaryController;
+use App\Http\Controllers\Backend\Account\OtherCostController;
+
+
+// Report Controller
+use App\Http\Controllers\Backend\Report\ProfitController;
 
 
 
@@ -415,7 +421,53 @@ Route::prefix('accounts')->group(function (){
         });
     });
 
+
+    // Employee Salary
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(AccountSalaryController::class)->group(function (){
+            Route::get('employee/salary/view', 'AccountEmpSalaryView')->name('account.employee.salary.view');
+            Route::get('employee/salary/add', 'AccountEmpSalaryAdd')->name('account.salary.add');
+            Route::post('employee/salary/add', 'AccountEmpSalaryStore')->name('account.salary.store');
+        });
+    });
+
+
+
+
+    // Other Cost
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(OtherCostController::class)->group(function (){
+            Route::get('other/cost/view', 'OtherCostView')->name('other.cost.view');
+            Route::get('other/cost/add', 'OtherCostAdd')->name('other.cost.add');
+            Route::post('other/cost/store', 'OtherCostStore')->name('store.other.cost');
+            Route::get('other/cost/edit/{id}', 'OtherCostEdit')->name('edit.other.cost');
+            Route::post('other/cost/update/{id}', 'OtherCostUpdate')->name('update.other.cost');
+            Route::get('other/cost/delete/{id}', 'OtherCostDelete')->name('delete.other.cost');
+        });
+    });
+
+
 }); // End Account Prefix
+
+
+
+
+
+
+// Reports Prefix
+Route::prefix('reports')->group(function (){
+    
+        // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
+
+    // Student Fee
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(ProfitController::class)->group(function (){
+            Route::get('monthly/profit/view', 'MonthlyProfitView')->name('monthly.profit.view');
+        });
+    });
+
+
+}); // End Reports Prefix
 
 
 
@@ -424,13 +476,19 @@ Route::prefix('accounts')->group(function (){
 // ==============================================================================================
 
 
-// Default Controller
+// Ajax Default Controller
     Route::group(['middleware' => 'auth'], function (){
             Route::controller(DefaultController::class)->group(function (){
             Route::get('getsubject', 'GetSubject')->name('marks.getsubject');
             Route::get('getstudents', 'GetStudents')->name('student.marks.getstudents');
             Route::get('getstudentmarks', 'MarksEditGetStudent')->name('student.edit.getstudents');
             Route::get('student/fee/get', 'GetStudentFee')->name('account.fee.getStudent');
+
+            // EMployee Salary get data
+            Route::get('account/salary/get', 'AccountSalaryGetEmployee')->name('account.salary.getemployee');
+
+            // Report Monthly Profit get data
+            Route::get('monthly/profit/datewise', 'MonthlyProfitDateWise')->name('report.profit.datewise.get');
         });
     });
 
