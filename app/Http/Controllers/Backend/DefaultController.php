@@ -241,51 +241,48 @@ class DefaultController extends Controller
         $sdate = date('Y-m-d', strtotime($request->start_date));
         $edate = date('Y-m-d', strtotime($request->end_date));
 
+        // "SELECT * FROM logs WHERE date BETWEEN '" . $from_date . "' AND  '" . $to_date . "'
+        // ORDER by id DESC"
+
+        
+
+        // Using Query Builder
+        // $student_fee = DB::table('account_student_fees')->whereBetween('date',[$start_date,$end_date])->sum();
+
         $student_fee = AccountStudentFee::whereBetween('date',[$start_date,$end_date])->sum('amount');
 
         $other_cost = OtherAccountCost::whereBetween('date',[$sdate,$edate])->sum('amount');
 
-        $other_emp_salary = AccountEmployeeSalary::whereBetween('date',[$start_date,$end_date])->sum('amount');
+        $emp_salary = AccountEmployeeSalary::whereBetween('date',[$start_date,$end_date])->sum('amount');
 
-         $data = EmployeeAttendance::select('employee_id')->groupBy('employee_id')->with(['user'])->where($where)->get();
+        $total_cost = $other_cost + $emp_salary;
+        $profit = $student_fee - $total_cost;
+
          // dd($data->toArray());
          $html  = '<table class="table table-bordered table-striped">';
          $html .= '<tr>';
-         $html .= '<th>SL</th>';
-         $html .= '<th>ID No</th>';
-         $html .= '<th>Employee Name</th>';
-         $html .= '<th>Basic Salary</th>';
-         $html .= '<th>No of absents</th>';
-         $html .= '<th>Salary for this month</th>';    
+         $html .= '<th>Student Fee</th>';
+         $html .= '<th>Other Cost</th>';
+         $html .= '<th>Employee Salary</th>';
+         $html .= '<th>Total Cost</th>';
+         $html .= '<th>Profit</th>';   
          $html .= '<th>Action</th>';
          $html .= '</tr>';
 
+         $color = 'success';
 
-         foreach ($data as $key => $attend) {
-            $totalattend = EmployeeAttendance::with(['user'])->where($where)->where('employee_id',$attend->employee_id)->where('attendance_status','Absent')->get();
-            $absentcount = count($totalattend);
-            $color = 'success';
-            $html .= '<tr>';
-            $html .= '<td>'.($key+1).'</td>';
-            $html .= '<td>'.$attend['user']['id_no'].'</td>';
-            $html .= '<td>'.$attend['user']['name'].'</td>';
-            $html .= '<td>'.$attend['user']['salary'].'</td>';
-            $html .= '<td>'.$absentcount.'</td>';
+         $html .= '<tr>';
+        $html .= '<td>'.$student_fee.'</td>';
+        $html .= '<td>'.$other_cost.'</td>';
+        $html .= '<td>'.$emp_salary.'</td>';
+        $html .= '<td>'.$total_cost.'</td>';
+        $html .= '<td>'.$profit.'</td>';
+        $html .='<td>';
+            $html .='<a class="btn btn-sm btn-'.$color.'" title="PDF" target="_blanks" href="'.route("report.profit.pdf").'?start_date='.$sdate.'&end_date='.$edate.'">Report</a>';
+        $html .= '</td>';
+        $html .= '</tr>';
 
-            
-            $salary = (float)$attend['user']['salary'];
-            $salaryperday = (float)$salary/30;
-            $totalsalaryminus = (float)$absentcount*(float)$salaryperday;
-            $totalsalary = (float)$salary-(float)$totalsalaryminus;
-
-            $html .='<td>'.$totalsalary.'$'.'</td>';
-            $html .='<td>';
-            $html .='<a class="btn btn-sm btn-'.$color.'" title="PaySlip" target="_blanks" href="'.route("employee.monthly.salary.payslip", [$attend->employee_id, $request->date]).'">Pay Slip</a>';
-            $html .= '</td>';
-            $html .= '</tr>';
-            // $html .= '</table>';
-
-         }  
+        
         return response()->json(@$html);
     }
 

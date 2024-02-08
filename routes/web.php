@@ -50,6 +50,12 @@ use App\Http\Controllers\Backend\Account\OtherCostController;
 
 // Report Controller
 use App\Http\Controllers\Backend\Report\ProfitController;
+use App\Http\Controllers\Backend\Report\MarksheetController;
+
+
+
+// Report Controller
+use App\Http\Controllers\Backend\Settings\SettingsController;
 
 
 
@@ -463,6 +469,36 @@ Route::prefix('reports')->group(function (){
     Route::group(['middleware' => 'auth'], function (){
             Route::controller(ProfitController::class)->group(function (){
             Route::get('monthly/profit/view', 'MonthlyProfitView')->name('monthly.profit.view');
+            Route::get('profit/pdf', 'MonthlyProfitPdf')->name('report.profit.pdf');
+        });
+    });
+
+
+    // Marksheet Generate
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(MarksheetController::class)->group(function (){
+            Route::get('marksheet/generate/view', 'MarksheetView')->name('generate.marksheet.view');
+            Route::get('marksheet/get', 'MarkSheetget')->name('report.marksheet.get');
+        });
+    });
+
+
+}); // End Reports Prefix
+
+
+
+
+
+
+// Settings Prefix
+Route::prefix('settings')->group(function (){
+    
+        // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
+
+    // Global Settings
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(SettingsController::class)->group(function (){
+            Route::get('global/view', 'GlobalSettingsView')->name('global.settings.view');
         });
     });
 

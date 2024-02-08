@@ -158,6 +158,24 @@ $route = Route::current()->getName();
           </a>
           <ul class="treeview-menu">
             <li class="{{ ($route == 'monthly.profit.view') ? 'active' : ''}}"><a href="{{ route('monthly.profit.view') }}"><i class="ti-more"></i>Monthly / Yearly Profit</a></li>
+            <li class="{{ ($route == 'generate.marksheet.view') ? 'active' : ''}}"><a href="{{ route('generate.marksheet.view') }}"><i class="ti-more"></i>Generate Marksheet</a></li>
+          </ul>
+        </li>
+
+
+
+
+        <li class="header nav-small-cap">Settings Interface</li>
+      
+        <li class="treeview {{ ($prefix == '/settings') ? 'active' : '' }}">
+          <a href="#">
+            <i data-feather="mail"></i> <span>Settings</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{{ ($route == 'global.settings.view') ? 'active' : ''}}"><a href="{{ route('global.settings.view') }}"><i class="ti-more"></i>Global Settings</a></li>
           </ul>
         </li>
 		

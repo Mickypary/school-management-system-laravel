@@ -69,7 +69,7 @@ class MarksGradeController extends Controller
         $editData->grade_point = $request->grade_point;
         $editData->start_mark = $request->start_mark;
         $editData->end_mark = $request->end_mark;
-        $editData->start_point = $request->end_point;
+        $editData->start_point = $request->start_point;
         $editData->end_point = $request->end_point;
         $editData->remarks = $request->remarks;
         $editData->save();
