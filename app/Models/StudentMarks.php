@@ -35,6 +35,11 @@ class StudentMarks extends Model
         return $this->belongsTo(ExamType::class, 'exam_type_id', 'id');
     }
 
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class, 'assign_subject_id', 'id');
+    }
+
 
 
 

@@ -51,10 +51,12 @@ use App\Http\Controllers\Backend\Account\OtherCostController;
 // Report Controller
 use App\Http\Controllers\Backend\Report\ProfitController;
 use App\Http\Controllers\Backend\Report\MarksheetController;
+use App\Http\Controllers\Backend\Report\AttendanceReportController;
+use App\Http\Controllers\Backend\Report\StudentResultController;
 
 
 
-// Report Controller
+// Settings Controller
 use App\Http\Controllers\Backend\Settings\SettingsController;
 
 
@@ -481,6 +483,25 @@ Route::prefix('reports')->group(function (){
             Route::get('marksheet/get', 'MarkSheetget')->name('report.marksheet.get');
         });
     });
+
+
+    // Attendance Report
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(AttendanceReportController::class)->group(function (){
+            Route::get('attendance/view', 'AttendReportView')->name('attendance.report.view');
+            Route::get('attendance/get', 'AttendReportGet')->name('report.attendance.get');
+        });
+    });
+
+    // Student Result and ID Card
+    Route::group(['middleware' => 'auth'], function (){
+            Route::controller(StudentResultController::class)->group(function (){
+            Route::get('student/result/view', 'ResultView')->name('student.result.view');
+            Route::get('student/result/get', 'ResultGet')->name('student.result.get');
+            Route::get('student/idcard/view', 'IdcardView')->name('student.idcard.view');
+        });
+    });
+
 
 
 }); // End Reports Prefix
