@@ -75,7 +75,7 @@
 
                   <tr>
                     <td width="50%">Student ID</td>
-                    <td width="50%">{{ $allData[0]->id_no }}</td>
+                    <td width="50%">{{ $allData[0]['student']->id_no }}</td>
                   </tr>
 
                   <tr>

@@ -11,6 +11,7 @@ use App\Models\StudentClass;
 use App\Models\ExamType;
 use App\Models\StudentMarks;
 use App\Models\MarksGrade;
+use App\Models\AssignStudent;
 use PDF;
 
 class StudentResultController extends Controller
@@ -44,6 +45,37 @@ class StudentResultController extends Controller
 
             $pdf = Pdf::loadView('backend.report.student_result.student_result_pdf', $data);
             return $pdf->stream('employee_attendance.pdf');
+        }else {
+            $notification = array(
+                'message' => 'Sorry! no record found' ,
+                'alert-type' => 'error', 
+            );
+
+            return redirect()->back()->with($notification);
+        }
+    }
+
+    public function IdcardView()
+    {
+        $data['years'] = StudentYear::all();
+        $data['classes'] = StudentClass::all();
+
+        return view('backend.report.idcard.idcard_view',$data);
+    }
+
+    public function IdcardGet(Request $request)
+    {
+        $year_id = $request->year_id;
+        $class_id = $request->class_id;
+
+        $checkdata = AssignStudent::where('year_id',$year_id)->where('class_id',$class_id)->first();
+
+        if ($checkdata == true) {
+            $data['allData'] = AssignStudent::where('year_id',$year_id)->where('class_id',$class_id)->get();
+            // dd($data['allData']->toArray());
+
+            $pdf = Pdf::loadView('backend.report.idcard.idcard_pdf', $data);
+            return $pdf->stream('idcard.pdf');
         }else {
             $notification = array(
                 'message' => 'Sorry! no record found' ,

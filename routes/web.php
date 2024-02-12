@@ -93,13 +93,13 @@ Route::controller(AdminController::class)->group(function (){
 
 
 // Middleware protected
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'prevent-back-history'], function() {
     // Start User Prefix
     Route::prefix('users')->group(function (){
         
             // Route::get('/user/view', [UserController::class, 'UserView'])->name('user.view');
         Route::controller(UserController::class)->group(function (){
-            Route::get('view', 'UserView')->name('user.view');
+            Route::get('view', 'UserView')->name('user.view')->middleware('auth');
             Route::get('add', 'UserAdd')->name('user.add');
             Route::post('store', 'UserStore')->name('user.store');
             Route::get('edit/{id}', 'UserEdit')->name('user.edit');
@@ -108,7 +108,7 @@ Route::group(['middleware' => 'auth'], function() {
         });
 
     }); // End User Prefix
-});
+
 
 
 
@@ -498,7 +498,10 @@ Route::prefix('reports')->group(function (){
             Route::controller(StudentResultController::class)->group(function (){
             Route::get('student/result/view', 'ResultView')->name('student.result.view');
             Route::get('student/result/get', 'ResultGet')->name('student.result.get');
+
+            // ID Card
             Route::get('student/idcard/view', 'IdcardView')->name('student.idcard.view');
+            Route::get('student/idcard/get', 'IdcardGet')->name('student.idcard.get');
         });
     });
 
@@ -525,6 +528,9 @@ Route::prefix('settings')->group(function (){
 
 
 }); // End Reports Prefix
+
+
+});   /* Prevent back middleware*/
 
 
 
