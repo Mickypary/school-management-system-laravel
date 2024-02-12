@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2024 at 04:42 PM
+-- Generation Time: Feb 12, 2024 at 02:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,63 @@ SET time_zone = "+00:00";
 --
 -- Database: `school`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account_employee_salaries`
+--
+
+CREATE TABLE `account_employee_salaries` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `employee_id` int(11) NOT NULL COMMENT 'employee_id=user_id',
+  `date` varchar(255) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `account_employee_salaries`
+--
+
+INSERT INTO `account_employee_salaries` (`id`, `employee_id`, `date`, `amount`, `created_at`, `updated_at`) VALUES
+(1, 12, '2024-01', 454333.33333333, '2024-02-03 17:20:59', '2024-02-03 17:20:59'),
+(2, 13, '2024-01', 309333.33333333, '2024-02-03 17:20:59', '2024-02-03 17:20:59'),
+(3, 14, '2024-01', 164333.33333333, '2024-02-03 17:20:59', '2024-02-03 17:20:59'),
+(4, 15, '2024-01', 145000, '2024-02-03 17:20:59', '2024-02-03 17:20:59'),
+(5, 16, '2024-01', 120000, '2024-02-03 17:20:59', '2024-02-03 17:20:59');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account_student_fees`
+--
+
+CREATE TABLE `account_student_fees` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `fee_category_id` int(11) DEFAULT NULL,
+  `year_id` int(11) DEFAULT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `date` varchar(255) DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `account_student_fees`
+--
+
+INSERT INTO `account_student_fees` (`id`, `student_id`, `fee_category_id`, `year_id`, `class_id`, `date`, `amount`, `created_at`, `updated_at`) VALUES
+(3, 2, 1, 1, 1, '2024-02', 285, '2024-02-02 12:54:44', '2024-02-02 12:54:44'),
+(4, 8, 1, 1, 1, '2024-02', 282, '2024-02-02 12:54:44', '2024-02-02 12:54:44'),
+(5, 10, 1, 1, 2, '2024-02', 288, '2024-02-02 12:55:20', '2024-02-02 12:55:20'),
+(6, 2, 2, 1, 1, '2024-02', 1520, '2024-02-02 12:59:52', '2024-02-02 12:59:52'),
+(7, 8, 2, 1, 1, '2024-02', 1504, '2024-02-02 12:59:52', '2024-02-02 12:59:52'),
+(8, 2, 1, 2, 3, '2024-02', 570, '2024-02-02 13:01:40', '2024-02-02 13:01:40'),
+(9, 9, 3, 6, 8, '2024-01', 534, '2024-02-02 13:09:11', '2024-02-02 13:09:11');
 
 -- --------------------------------------------------------
 
@@ -319,6 +376,28 @@ INSERT INTO `fee_category_amounts` (`id`, `fee_category_id`, `class_id`, `amount
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `global_settings`
+--
+
+CREATE TABLE `global_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `institute_name` varchar(255) DEFAULT NULL,
+  `institute_code` varchar(255) DEFAULT NULL,
+  `reg_prefix` varchar(255) DEFAULT NULL,
+  `institute_email` varchar(255) DEFAULT NULL,
+  `address` longtext DEFAULT NULL,
+  `mobile_no` varchar(255) DEFAULT NULL,
+  `currency` varchar(255) DEFAULT NULL,
+  `currency_symbol` varchar(255) DEFAULT NULL,
+  `session_id` int(11) DEFAULT NULL,
+  `footer_text` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `leave_purposes`
 --
 
@@ -339,6 +418,38 @@ INSERT INTO `leave_purposes` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (3, 'Health Problem', '2024-01-25 12:46:25', '2024-01-25 14:12:25'),
 (4, 'Friend Problem', '2024-01-25 12:47:42', '2024-01-25 12:47:42'),
 (5, 'Testing', '2024-01-25 14:14:56', '2024-01-25 14:14:56');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marks_grades`
+--
+
+CREATE TABLE `marks_grades` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `grade_name` varchar(255) NOT NULL,
+  `grade_point` varchar(255) NOT NULL,
+  `start_mark` varchar(255) NOT NULL,
+  `end_mark` varchar(255) NOT NULL,
+  `start_point` varchar(255) NOT NULL,
+  `end_point` varchar(255) NOT NULL,
+  `remarks` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `marks_grades`
+--
+
+INSERT INTO `marks_grades` (`id`, `grade_name`, `grade_point`, `start_mark`, `end_mark`, `start_point`, `end_point`, `remarks`, `created_at`, `updated_at`) VALUES
+(1, 'A+', '5', '80', '100', '5', '5', 'Excellent', '2024-01-30 14:02:38', '2024-02-08 09:15:37'),
+(2, 'A', '4', '70', '79', '4', '4.99', 'Very Good', '2024-01-31 06:14:16', '2024-02-08 09:19:44'),
+(3, 'B', '3.5', '60', '69', '3.5', '3.99', 'Good', '2024-01-31 06:16:20', '2024-02-08 09:19:52'),
+(4, 'C', '3', '50', '59', '3', '3.49', 'Average', '2024-01-31 06:18:28', '2024-02-08 09:20:01'),
+(5, 'D', '2', '40', '49', '2', '2.99', 'Fair', '2024-01-31 06:21:26', '2024-02-08 09:20:11'),
+(6, 'E', '1', '30', '39', '1', '1.99', 'Needs Improvement', '2024-01-31 06:23:36', '2024-02-08 09:20:18'),
+(7, 'F', '0', '0', '38', '0', '0.99', 'Fail', '2024-01-31 06:26:46', '2024-02-08 09:21:26');
 
 -- --------------------------------------------------------
 
@@ -378,7 +489,36 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2024_01_19_193055_create_employee_salary_logs_table', 2),
 (20, '2024_01_23_120717_create_leave_purposes_table', 3),
 (21, '2024_01_23_120749_create_employee_leaves_table', 4),
-(22, '2024_01_26_110526_create_employee_attendances_table', 5);
+(22, '2024_01_26_110526_create_employee_attendances_table', 5),
+(23, '2024_01_27_160007_create_student_marks_table', 6),
+(24, '2024_01_30_134810_create_marks_grades_table', 7),
+(25, '2024_01_31_074836_create_account_student_fees_table', 8),
+(26, '2024_02_02_211816_create_account_employee_salaries_table', 9),
+(27, '2024_02_03_185934_create_other_account_costs_table', 10),
+(28, '2024_02_07_151150_create_global_settings_table', 11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `other_account_costs`
+--
+
+CREATE TABLE `other_account_costs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `date` date DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `other_account_costs`
+--
+
+INSERT INTO `other_account_costs` (`id`, `date`, `amount`, `description`, `image`, `created_at`, `updated_at`) VALUES
+(1, '2024-02-06', 1000, 'Web Devvvvvv', '202402060945website image 370 x 250.png', '2024-02-06 08:25:13', '2024-02-06 08:45:33');
 
 -- --------------------------------------------------------
 
@@ -431,7 +571,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ZqdXbHW3BuoAvLEotGZuNrbQWZBgXwpzPUC6230s', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiR3ZFemF3M01HTFNPTFFVZXRVcng1MmhCQ0RlbXZ6MVNhUGphWmhCaSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjIxOiJwYXNzd29yZF9oYXNoX3NhbmN0dW0iO3M6NjA6IiQyeSQxMiRMNmk0NXdrbm9EcUNCcmFJMkU4QllPVk1uaXQxaDU0TURpYWdZcUtxQXIxWi56Mmc3WlU4ZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9lbXBsb3llZS9tb250aGx5L3NhbGFyeS9wYXlzbGlwLzE2LzIwMjQtMDEiO319', 1706369960);
+('1kxrnsNyYTc33JImmikhEzl2z2m4DtZMdSEGpifu', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibzR1aUxnUFI5TW92d3hTNWJFS05YaFFyejZrMW1oQXhsTlB5OW9MMiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJEw2aTQ1d2tub0RxQ0JyYUkyRThCWU9WTW5pdDFoNTRNRGlhZ1lxS3FBcjFaLnoyZzdaVThlIjt9', 1707732576),
+('hmXg6KYKL82BWbhkbYnbDA5v4zQ9G9lcJvlcBPyS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidkZzeXpYM04wOTJlM2xBQ0RyZXBwQVJTSWtwVmQyaDVjMnMyVkpsUSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkTDZpNDV3a25vRHFDQnJhSTJFOEJZT1ZNbml0MWg1NE1EaWFnWXFLcUFyMVouejJnN1pVOGUiO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcmVwb3J0cy9zdHVkZW50L3Jlc3VsdC92aWV3Ijt9czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0OToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3JlcG9ydHMvc3R1ZGVudC9yZXN1bHQvdmlldyI7fX0=', 1707669633),
+('JiA2Qy8sT7XjffoOdLCf2sn6cjBGxcDTn7aMnjjI', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicVRTZ1FCTkh0dkZPZlFYY1l3UTNqdUVQcHhkWU81Z1lnTEVOWUtGVCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjUzOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvcmVwb3J0cy9tYXJrc2hlZXQvZ2VuZXJhdGUvdmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1707741646);
 
 -- --------------------------------------------------------
 
@@ -513,6 +655,39 @@ INSERT INTO `student_groups` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Art', '2024-01-02 08:17:38', '2024-01-02 08:17:38'),
 (2, 'Science', '2024-01-02 08:17:45', '2024-01-02 08:17:45'),
 (3, 'Commercial', '2024-01-02 08:17:52', '2024-01-02 08:17:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_marks`
+--
+
+CREATE TABLE `student_marks` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` int(11) NOT NULL COMMENT 'student_id=user_id',
+  `id_no` varchar(255) DEFAULT NULL,
+  `year_id` int(11) DEFAULT NULL,
+  `class_id` int(11) DEFAULT NULL,
+  `assign_subject_id` int(11) DEFAULT NULL,
+  `exam_type_id` int(11) DEFAULT NULL,
+  `marks` double DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `student_marks`
+--
+
+INSERT INTO `student_marks` (`id`, `student_id`, `id_no`, `year_id`, `class_id`, `assign_subject_id`, `exam_type_id`, `marks`, `created_at`, `updated_at`) VALUES
+(3, 2, 'GVS20180001', 1, 1, 10, 1, 50, '2024-01-30 09:37:13', '2024-01-30 09:37:13'),
+(4, 8, 'GVS20180008', 1, 1, 10, 1, 90, '2024-01-30 09:37:13', '2024-01-30 09:37:13'),
+(7, 2, 'GVS20180001', 1, 1, 9, 1, 90, '2024-02-09 20:59:40', '2024-02-09 20:59:40'),
+(8, 8, 'GVS20180008', 1, 1, 9, 1, 18, '2024-02-09 20:59:40', '2024-02-09 20:59:40'),
+(9, 2, 'GVS20180001', 1, 1, 12, 1, 55, '2024-02-11 11:02:09', '2024-02-11 11:02:09'),
+(10, 8, 'GVS20180008', 1, 1, 12, 1, 67, '2024-02-11 11:02:09', '2024-02-11 11:02:09'),
+(11, 2, 'GVS20180001', 1, 1, 11, 1, 100, '2024-02-11 11:02:32', '2024-02-11 11:02:32'),
+(12, 8, 'GVS20180008', 1, 1, 11, 1, 88, '2024-02-11 11:02:32', '2024-02-11 11:02:32');
 
 -- --------------------------------------------------------
 
@@ -642,7 +817,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `usertype`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `mobile`, `address`, `gender`, `image`, `fname`, `mname`, `father_email`, `mother_email`, `father_mobile`, `mother_phone`, `religion`, `id_no`, `dob`, `code`, `role`, `join_date`, `designation_id`, `salary`, `status`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`) VALUES
 (1, 'Admin', 'Admin', 'admin@gmail.com', NULL, '$2y$12$L6i45wknoDqCBraI2E8BYOVMnit1h54MDiagYqKqAr1Z.z2g7ZU8e', NULL, NULL, NULL, '09062684833', 'address', 'male', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Admin', NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, '2024-01-17 11:52:54'),
-(2, 'Student', 'Ali Khan', NULL, NULL, '$2y$12$UoWbBebsuE.VRH4dLv9oeuFa6NWgS0wN/Ca4xE05rPbI2Iom2jUja', NULL, NULL, NULL, '2345678909', 'India', 'male', '202401020932.KINGSLEY JASON CHIBUIKEM.jpg', 'Abu Khan', 'Ma Khan', 'khan@gmail.com', 'makhan@gmail.com', '15171819087', NULL, 'Muslim', 'GVS20180001', '1970-01-01', '8950', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-01-02 08:32:13', '2024-01-08 13:32:48'),
+(2, 'Student', 'Ali Khan', NULL, NULL, '$2y$12$UoWbBebsuE.VRH4dLv9oeuFa6NWgS0wN/Ca4xE05rPbI2Iom2jUja', NULL, NULL, NULL, '2345678909', 'India', 'male', 'ade.jpg', 'Abu Khan', 'Ma Khan', 'khan@gmail.com', 'makhan@gmail.com', '15171819087', NULL, 'Muslim', 'GVS20180001', '1970-01-01', '8950', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-01-02 08:32:13', '2024-01-08 13:32:48'),
 (3, 'Student', 'John', NULL, NULL, '$2y$12$Bw8UK.H/jFSlGoczu6d5p.kIp30fCOdlFtQJLVLqogkgONXr0wM1O', NULL, NULL, NULL, '1234567890', NULL, 'male', '202401041917.Olumuyiwa Oluwadarasimi.jpg', 'Smith', 'Love', 'smith@gmail.com', 'love@gmail.com', '0923456786', NULL, 'Christianity', 'GVS20200003', '2019-10-29', '8053', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-01-04 18:17:00', '2024-01-04 18:17:00'),
 (4, 'Student', 'Rohim', NULL, NULL, '$2y$12$heIUiJ5aAdjuw1ek/64AaOBmbwE21VJiWft2GK2yST8nZ3iYnuXcm', NULL, NULL, NULL, '34343434345', 'USA', 'female', '202401042303.Niayomi Yussuf Emmanuel.png', 'Abdul', 'Nazma', 'abdul@gmail.com', 'nazma@gmail.com', '454545454545', NULL, 'Christianity', 'GVS20220004', '2019-10-22', '3492', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-01-04 22:03:59', '2024-01-06 23:20:01'),
 (5, 'Student', 'Lily', NULL, NULL, '$2y$12$oSk4I.OcF4.ntCHdao/qVe6gE0j0W7mHFj4GV2nTyO7jWJNJQLfCK', NULL, NULL, NULL, '1314151686', 'Phillipine', 'female', '202401070026.Screenshot 2024-01-06 103422.png', 'Ojo', 'Monalisa', 'ojo@gmail.com', 'monalisa@gmail.com', '1234567890', NULL, 'Muslim', 'GVS20190005', '2013-05-30', '6836', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, '2024-01-06 23:26:21', '2024-01-06 23:26:21'),
@@ -661,6 +836,18 @@ INSERT INTO `users` (`id`, `usertype`, `name`, `email`, `email_verified_at`, `pa
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `account_employee_salaries`
+--
+ALTER TABLE `account_employee_salaries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `account_student_fees`
+--
+ALTER TABLE `account_student_fees`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `assign_students`
@@ -727,6 +914,12 @@ ALTER TABLE `fee_category_amounts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `global_settings`
+--
+ALTER TABLE `global_settings`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `leave_purposes`
 --
 ALTER TABLE `leave_purposes`
@@ -734,9 +927,21 @@ ALTER TABLE `leave_purposes`
   ADD UNIQUE KEY `leave_purposes_name_unique` (`name`);
 
 --
+-- Indexes for table `marks_grades`
+--
+ALTER TABLE `marks_grades`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `other_account_costs`
+--
+ALTER TABLE `other_account_costs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -782,6 +987,12 @@ ALTER TABLE `student_groups`
   ADD UNIQUE KEY `student_groups_name_unique` (`name`);
 
 --
+-- Indexes for table `student_marks`
+--
+ALTER TABLE `student_marks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `student_shifts`
 --
 ALTER TABLE `student_shifts`
@@ -811,6 +1022,18 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `account_employee_salaries`
+--
+ALTER TABLE `account_employee_salaries`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `account_student_fees`
+--
+ALTER TABLE `account_student_fees`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `assign_students`
@@ -873,16 +1096,34 @@ ALTER TABLE `fee_category_amounts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
+-- AUTO_INCREMENT for table `global_settings`
+--
+ALTER TABLE `global_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `leave_purposes`
 --
 ALTER TABLE `leave_purposes`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `marks_grades`
+--
+ALTER TABLE `marks_grades`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `other_account_costs`
+--
+ALTER TABLE `other_account_costs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -907,6 +1148,12 @@ ALTER TABLE `student_discounts`
 --
 ALTER TABLE `student_groups`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `student_marks`
+--
+ALTER TABLE `student_marks`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `student_shifts`
